@@ -1,0 +1,82 @@
+:root{
+    --cor-header:#49235A;
+    --cor-download-button:#5C2C72;
+    --cor-buttons-navbar: #622F7A;
+  }
+  
+  *{
+    padding: 0;
+    margin: 0;
+    outline: none;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: roboto condensed, sans-serif;
+  }
+  
+  body {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  
+  .logo{
+    height: 44px;
+    width: 196px; 
+    padding-left: 8px;
+  }
+  
+  .header{
+    height: 80px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 8px;
+    background: var(--cor-header);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+  
+  .navbar{
+    padding-right: 12px;
+    ul{
+      display: flex;
+      cursor: pointer;
+    }
+  }
+  
+  .navbar ul li a{
+    box-shadow: 0px 5px 10px -3px rgba(0,0,0,0.30);
+    display: block;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    background-color: var(--cor-buttons-navbar);
+    margin: 0 5px;
+    text-align: center;
+  }
+  
+  .content {
+    padding-top: 180px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    p{
+      padding-top: 50px;
+      font-family: "Risque", sans-serif;
+      font-size: 48px;
+      color: var(--cor-buttons-navbar);
+    } 
+  }
+  
+  .subtext{
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    font-family:"Secular One", sans-serif;
+    font-size: 16px;
+    color: var(--cor-buttons-navbar);
+  }
