@@ -1,16 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="index.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="index.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>teste</title>
 </head>
-
 <body>
+  <header class="header">
+    <a href="index.html">
+      <img class="logo" src="images/tecnospeed-white.svg" alt="logo TecnoSpeed">
+    </a>
+    <div class="navbar">
+      <ul>
+        <li><a href="">.PFX para .KEY + .CRT</a></li>
+        <li><a href="">.KEY + .CRT para .PFX</a></li>
+      </ul>
+    </div>
+  </header>
 
+  <main class="main">
+    <input type="file" id="file">  
+    <label for="file" id="file">
+      <img src="images/upload.png" alt="upload de arquivo">Selecione o arquivo
+    </label>
+  </main>
+
+  <div class="container" style="display: none;">
+    <div class="grid">
+      <img src="images/file-text.png" alt="arquivo" class="arquive">
+      <p class="file-name" id="nomeArquivo"></p>
+      <img src="images/x.png" alt="close" class="close" onclick="fecharArquivo()">  
+    </div>
+    <button class="download-button">Download</button>
+  </div>
+
+  
 </body>
-
 </html>
