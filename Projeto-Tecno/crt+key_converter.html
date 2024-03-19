@@ -24,10 +24,13 @@
   </header>
 
   <main class="main">
-    <input onchange="escolherKey_Crt(event)" type="file" id="file" multiple>  
+    <input onchange="escolherKey_Crt(event)" type="file" id="file" accept=".crt,.key">  
+    <input type="file" id="crtFile" style="display:none">
+    <input type="file" id="keyFile" style="display:none">
     <label for="file">
       <img src="images/upload.png" alt="upload de arquivo">Selecione os arquivos 
     </label>
+    <p id="msgForUser">Selecione um arquivo de cada vez (.crt ou .key)</p>
   </main>
 
   <div class="container" style="display: none;">
