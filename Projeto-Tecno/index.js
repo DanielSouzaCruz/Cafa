@@ -34,3 +34,9 @@ function escolherPfx(event) {
     document.querySelector(".container").style.display = "none";
     document.getElementById("file").value = "";
   }
+
+  function escolherKey_Crt(event){
+    
+  }
+
+  
