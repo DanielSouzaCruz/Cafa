@@ -24,18 +24,21 @@
   </header>
 
   <main class="main">
-    <input type="file" id="file" multiple>  
+    <input onchange="escolherKey_Crt(event)" type="file" id="file" multiple>  
     <label for="file">
       <img src="images/upload.png" alt="upload de arquivo">Selecione os arquivos 
     </label>
   </main>
 
   <div class="container" style="display: none;">
-    <div class="grid">
-      <img src="images/file-text.png" alt="arquivo" class="arquive">
-      <p class="file-name" id="nomeArquivo"></p>
-      <img src="images/x.png" alt="close" class="close" onclick="fecharArquivo()">  
+    <div id="containerArquivos">
+      <div class="grid">
+        <img src="images/file-text.png" alt="arquivo" class="arquive">
+        <p class="file-name" id="nomeArquivo"></p>
+        <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt()">  
+      </div>
     </div>
+    
     <button class="download-button">Download</button>
   </div>
 
