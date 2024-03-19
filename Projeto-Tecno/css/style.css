@@ -1,178 +1,180 @@
-:root{
-    --cor-header:#49235A;
-    --cor-download-button:#5C2C72;
-    --cor-buttons-navbar: #622F7A;
-  }
-  
-  *{
-    padding: 0;
-    margin: 0;
-    outline: none;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-    font-family: roboto condensed, sans-serif;
-  }
-  
-  body {
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-  }
-  
-  .logo{
-    height: 44px;
-    width: 196px; 
-    padding-left: 8px;
-  }
-  
-  .header{
-    height: 80px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 8px 8px;
-    background: var(--cor-header);
+:root {
+  --cor-header: #49235A;
+  --cor-download-button: #5C2C72;
+  --cor-buttons-navbar: #622F7A;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: roboto condensed, sans-serif;
+}
+
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+.logo {
+  height: 44px;
+  width: 196px;
+  padding-left: 8px;
+}
+
+.header {
+  height: 80px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 8px;
+  background: var(--cor-header);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.navbar {
+  padding-right: 12px;
+
+  ul {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
+    cursor: pointer;
   }
-  
-  .navbar{
-    padding-right: 12px;
-    ul{
-      display: flex;
-      cursor: pointer;
-    }
-  }
-  
-  .navbar ul li a{
-    box-shadow: 0px 5px 10px -3px rgba(0,0,0,0.30);
-    display: block;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 50px;
-    background-color: var(--cor-buttons-navbar);
-    margin: 0 5px;
-    text-align: center;
-  }
-  
-  .content {
-    padding-top: 180px;
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    p{
-      padding-top: 50px;
-      font-family: "Risque", sans-serif;
-      font-size: 48px;
-      color: var(--cor-buttons-navbar);
-    } 
-  }
-  
-  .subtext{
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    font-family:"Secular One", sans-serif;
-    font-size: 16px;
+}
+
+.navbar ul li a {
+  box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.30);
+  display: block;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 50px;
+  background-color: var(--cor-buttons-navbar);
+  margin: 0 5px;
+  text-align: center;
+}
+
+.content {
+  padding-top: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    padding-top: 50px;
+    font-family: "Risque", sans-serif;
+    font-size: 48px;
     color: var(--cor-buttons-navbar);
   }
+}
 
-  .input-content{
-    height: 52vh;
-    display: grid;
-    place-content: center;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  .main{
-    height: 46vh;
-    display: grid;
-    place-content: center;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  input[type="file"]{
-    display: none;
-  }
-  
-  label{
-    cursor: pointer;
-    color: white;
-    border-radius: 4px;
-    padding: 15px 40px;
-    background-color: var(--cor-header);
-    margin: auto;
-    font-size: 36px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  label img{
-    margin-right: 14px;
-  }
-  
-  #nomeArquivo {
-    font-weight: bold;
-    margin-left: 10px;
-  }
-  
-  .hidden {
-    display: none; 
-  }
-  
-  .container {
-    flex-direction: column;
-    align-items: center;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    height: 52vh;
-  }
-  
-  .grid {
-    box-shadow: 0px 5px 10px -3px rgba(0,0,0,0.30);
-    display: flex;
-    background-color: #f8f8ff;
-    width: 420px;
-    height: 80px;
-    border: 2px solid var(--cor-download-button);
-    border-radius: 2px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .arquive{
-    margin-left: 8px;
-  }
-  
-  .close {
-    margin-right: 8px;
-    cursor: pointer;
-  }
-  
-  .file-name{  
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  .download-button {
-    display: inline-block;
-    margin-top: 20px;
-    border: 2px solid var(--cor-download-button);
-    padding: 12px 20px;
-    border-radius: 12px;
-    background-color: var(--cor-download-button); 
-    color: white;
-    text-align: center;
-    font-size: 24px;
-    cursor: pointer; 
-  }
+.subtext {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Secular One", sans-serif;
+  font-size: 16px;
+  color: var(--cor-buttons-navbar);
+}
+
+.input-content {
+  height: 52vh;
+  display: grid;
+  place-content: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main {
+  height: 46vh;
+  display: grid;
+  place-content: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  color: white;
+  border-radius: 4px;
+  padding: 15px 40px;
+  background-color: var(--cor-header);
+  margin: auto;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label img {
+  margin-right: 14px;
+}
+
+#nomeArquivo {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  flex-direction: column;
+  align-items: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 52vh;
+}
+
+.grid {
+  box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.30);
+  display: flex;
+  background-color: #f8f8ff;
+  width: 420px;
+  height: 80px;
+  border: 2px solid var(--cor-download-button);
+  border-radius: 2px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arquive {
+  margin-left: 8px;
+}
+
+.close {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.file-name {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.download-button {
+  display: inline-block;
+  margin-top: 20px;
+  border: 2px solid var(--cor-download-button);
+  padding: 12px 20px;
+  border-radius: 12px;
+  background-color: var(--cor-download-button);
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  cursor: pointer;
+}
