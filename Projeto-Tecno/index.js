@@ -127,8 +127,6 @@ function escolherKey_Crt(event) {
     if (document.getElementById('keyFile').files.length != 0)
       dt.items.add(document.getElementById('keyFile').files[0]); // passa os arquivos do input oculto de arquivos key para o armazenador temporário
 
-
-
     // condicionais para controlar se o botão downlaod deve ou não aparecer E também se a seção seleção de arquivos deve ou não aparecer
     if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) { // 
       document.getElementsByClassName("download-button")[0].style.display = "inline-block";
@@ -150,7 +148,7 @@ function escolherKey_Crt(event) {
 
 
       document.getElementById("containerArquivos").innerHTML += `
-  <div class="grid">
+  <div class="grid_inputs">
     <img src="images/file-text.png" alt="arquivo" class="arquive">
     <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${arquivo.name}">${nomeAExibir}</p>
     <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  

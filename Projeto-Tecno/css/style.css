@@ -4,6 +4,8 @@
   --cor-buttons-navbar: #622F7A;
 }
 
+
+
 * {
   padding: 0;
   margin: 0;
@@ -90,12 +92,16 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.main {
-  height: 46vh;
+.main ,
+.main_inputs{
   display: grid;
   place-content: center;
   font-family: 'Poppins', sans-serif;
 }
+
+.main{
+  height: 46vh;
+} 
 
 input[type="file"] {
   display: none;
@@ -135,8 +141,8 @@ label img {
   align-items: center;
 }
 
-.grid {
-  margin-top: 100px;
+.grid,
+.grid_inputs {
   box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.30);
   display: flex;
   background-color: #f8f8ff;
@@ -149,11 +155,15 @@ label img {
   align-items: center;
 }
 
-.grid:first-of-type{
+.grid {
   margin-top: 100px;
 }
 
-.grid:not(:first-of-type){
+.grid_inputs:first-of-type{
+  margin-top: 100px;
+}
+
+.grid_inputs:not(:first-of-type){
   margin-top: 20px;
 }
 
