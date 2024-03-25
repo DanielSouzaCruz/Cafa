@@ -187,3 +187,7 @@ label img {
   cursor: pointer;
 }
 
+#msgForUser{
+  font-weight: bold;
+}
+

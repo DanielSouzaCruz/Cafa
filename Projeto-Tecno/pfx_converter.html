@@ -25,10 +25,11 @@
   </header>
 
   <main class="main">
-    <input onchange="escolherPfx(event)" type="file" id="file">
+    <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx">
     <label for="file" id="file">
       <img src="images/upload.png" alt="upload de arquivo">Selecione o arquivo
     </label>
+    <p id="msgForUser">Selecione um arquivo (.pfx)</p>
   </main>
 
   <div class="container" style="display: none;">
