@@ -1,6 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const fs = require('fs');
-const forge = require('node-forge');
+var forge = require('node-forge');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -177,13 +177,51 @@ function converterCrtAndKeyToPfx() {
         reader.readAsText(elementInputKey, "UTF-8");
         reader.onload = function (evt) {
 
-          //FAZER CONVERSÃO crt+key para pfx AQUI
           conteudoArquivoKey = evt.target.result;
           alert("Conteúdo do arquivo " + elementInputCrt.path + ": \n" + conteudoArquivoCrt);
           alert("Conteúdo do arquivo " + elementInputKey.path + ": \n" + conteudoArquivoKey);
 
-          ipcRenderer.send('convert-pfx', { pfxPath, outputPath });
+          const senha = "123456";
+
+          // Converter o conteúdo para o formato Forge
+          const certAsn1 = forge.pki.certificateFromPem(conteudoArquivoCrt);
+          const chaveAsn1 = forge.pki.privateKeyFromPem(conteudoArquivoKey);
+
+          // Criar o objeto PKCS#12 (PFX)
+          const p12Asn1 = forge.pkcs12.toPkcs12Asn1(chaveAsn1, certAsn1, senha);
+
+          // Converter o objeto PKCS#12 para um ArrayBuffer
+          const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
+          const p12b64 = forge.util.encode64(p12Der);
+
+          const a = document.createElement('a');
+          a.download = 'certificate.p12';
+          a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
+          a.appendChild(document.createTextNode('Download'));
+          document.body.appendChild(a);
+          a.click();
+
+          document.body.removeChild(a);
+
+          // Salvar arquivo PFX
+          // fs.writeFileSync("C:\\", p12Der, { encoding: 'binary' });
+
+          /*const blob = new Blob([p12Der], { type: 'application/x-pkcs12' });
+          // Criar um link de download
+          const linkDownload = document.createElement("a");
+          linkDownload.href = URL.createObjectURL(blob);
+          linkDownload.download = "certificate.pfx";
+
+          // Ocultar o link de download e clicá-lo programaticamente
+          linkDownload.style.display = "none";
+          document.body.appendChild(linkDownload);
+          linkDownload.click();
+
+          // Remover o link de download depois que o download é concluído
+          document.body.removeChild(linkDownload);*/
+
         }
+
         reader.onerror = function (evt) {
           console.log("Erro");
         }
@@ -215,9 +253,3 @@ function converterPfxParaCrtAndKey(pfxPath, outputPath) {
   fs.writeFileSync(outputPath.crt, certPem);
   fs.writeFileSync(outputPath.key, keyPem);
 }
-
-// Comunicação com o front-end
-ipcMain.on('convert-pfx', (event, { pfxPath, outputPath }) => {
-  converterPfxParaCrtAndKey(pfxPath, outputPath);
-  event.reply('conversion-done', outputPath);
-});
