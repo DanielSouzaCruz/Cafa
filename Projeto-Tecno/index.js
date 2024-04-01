@@ -1,4 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
+const fs = require('fs');
+const forge = require('node-forge');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -158,3 +160,64 @@ function escolherKey_Crt(event) {
   }
 }
 
+function converterCrtAndKeyToPfx() {
+  const elementInputCrt = document.getElementById('crtFile').files[0];
+  const elementInputKey = document.getElementById('keyFile').files[0];
+
+  var conteudoArquivoCrt, conteudoArquivoKey;
+
+  if (elementInputCrt) {
+    var reader = new FileReader();
+    reader.readAsText(elementInputCrt, "UTF-8");
+    reader.onload = function (evt) {
+      conteudoArquivoCrt = evt.target.result;
+
+      if (elementInputKey) {
+        var reader = new FileReader();
+        reader.readAsText(elementInputKey, "UTF-8");
+        reader.onload = function (evt) {
+
+          //FAZER CONVERSÃO crt+key para pfx AQUI
+          conteudoArquivoKey = evt.target.result;
+          alert("Conteúdo do arquivo " + elementInputCrt.path + ": \n" + conteudoArquivoCrt);
+          alert("Conteúdo do arquivo " + elementInputKey.path + ": \n" + conteudoArquivoKey);
+
+          ipcRenderer.send('convert-pfx', { pfxPath, outputPath });
+        }
+        reader.onerror = function (evt) {
+          console.log("Erro");
+        }
+      }
+    }
+    reader.onerror = function (evt) {
+      console.log("Erro");
+    }
+  }
+
+
+}
+
+// Função para converter PFX em CRT e KEY
+function converterPfxParaCrtAndKey(pfxPath, outputPath) {
+  const pfxData = fs.readFileSync(pfxPath);
+  const p12Asn1 = forge.asn1.fromDer(pfxData);
+  const p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1, false, '');
+
+  const bags = p12.getBags({ bagType: forge.pki.oids.pkcs8ShroudedKeyBag });
+  const keyData = bags[forge.pki.oids.pkcs8ShroudedKeyBag][0].key;
+
+  const certBags = p12.getBags({ bagType: forge.pki.oids.certBag });
+  const certData = certBags[forge.pki.oids.certBag][0].cert;
+
+  const certPem = forge.pki.certificateToPem(certData);
+  const keyPem = forge.pki.privateKeyToPem(keyData);
+
+  fs.writeFileSync(outputPath.crt, certPem);
+  fs.writeFileSync(outputPath.key, keyPem);
+}
+
+// Comunicação com o front-end
+ipcMain.on('convert-pfx', (event, { pfxPath, outputPath }) => {
+  converterPfxParaCrtAndKey(pfxPath, outputPath);
+  event.reply('conversion-done', outputPath);
+});
