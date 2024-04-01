@@ -235,21 +235,15 @@ function converterCrtAndKeyToPfx() {
 
 }
 
-// Função para converter PFX em CRT e KEY
-function converterPfxParaCrtAndKey(pfxPath, outputPath) {
-  const pfxData = fs.readFileSync(pfxPath);
-  const p12Asn1 = forge.asn1.fromDer(pfxData);
-  const p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1, false, '');
-
-  const bags = p12.getBags({ bagType: forge.pki.oids.pkcs8ShroudedKeyBag });
-  const keyData = bags[forge.pki.oids.pkcs8ShroudedKeyBag][0].key;
-
-  const certBags = p12.getBags({ bagType: forge.pki.oids.certBag });
-  const certData = certBags[forge.pki.oids.certBag][0].cert;
-
-  const certPem = forge.pki.certificateToPem(certData);
-  const keyPem = forge.pki.privateKeyToPem(keyData);
-
-  fs.writeFileSync(outputPath.crt, certPem);
-  fs.writeFileSync(outputPath.key, keyPem);
+function converterPfxToCrtAndKey() {
+  const elementInputPfx = document.getElementById('file').files[0];
+  
+  if (elementInputPfx) {
+    var reader = new FileReader();
+    reader.readAsText(elementInputPfx, "UTF-8");
+    reader.onload = function (evt) {
+      var conteudoArquivoPfx = evt.target.result;
+      
+    }
+  }
 }
