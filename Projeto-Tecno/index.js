@@ -195,7 +195,7 @@ function converterCrtAndKeyToPfx() {
           const p12b64 = forge.util.encode64(p12Der);
 
           const a = document.createElement('a');
-          a.download = 'certificate.p12';
+          a.download = 'certificate.pfx';
           a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
           a.appendChild(document.createTextNode('Download'));
           document.body.appendChild(a);
@@ -237,13 +237,23 @@ function converterCrtAndKeyToPfx() {
 
 function converterPfxToCrtAndKey() {
   const elementInputPfx = document.getElementById('file').files[0];
-  
+
   if (elementInputPfx) {
     var reader = new FileReader();
-    reader.readAsText(elementInputPfx, "UTF-8");
+
     reader.onload = function (evt) {
-      var conteudoArquivoPfx = evt.target.result;
-      
-    }
+      const arrayBuffer = event.target.result;
+      const uint8Array = new Uint8Array(arrayBuffer);
+      const binaryString = String.fromCharCode.apply(null, uint8Array);
+      const base64String = btoa(binaryString);
+
+      // Enviar base64String para o servidor para processamento posterior
+      alert(base64String);
+
+
+
+    };
+    reader.readAsArrayBuffer(elementInputPfx);
+
   }
 }
