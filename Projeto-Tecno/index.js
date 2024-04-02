@@ -243,7 +243,8 @@ function converterPfxToCrtAndKey() {
     reader.readAsText(elementInputPfx, "UTF-8");
     reader.onload = function (evt) {
       var conteudoArquivoPfx = evt.target.result;
-      
+      var senhaPfx = document.getElementById("senhaParaPFX").value;
+      alert(senhaPfx);
     }
   }
 }
