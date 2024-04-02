@@ -201,3 +201,27 @@ label img {
   font-weight: bold;
 }
 
+.password{
+  border: 1px solid #333;
+  width: 300px;
+  background: #ffff;
+  margin: 20px auto 0;
+  border-radius: 5px;
+}
+
+.row{
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+#senhaParaPFX{
+  flex: 1;
+  height: 25px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}
