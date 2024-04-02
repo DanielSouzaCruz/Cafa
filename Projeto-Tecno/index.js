@@ -27,6 +27,8 @@ function escolherPfx(event) {
       document.getElementById("nomeArquivo").textContent = nome;
       document.getElementById("file").classList.add("hidden");
       document.querySelector(".container").style.display = "flex";
+      document.getElementsByClassName("password")[0].style.display = "block";
+      document.getElementById("senhaParaPFX").value = "";
     }
   }
 }
@@ -80,9 +82,12 @@ function fecharArquivoKey_Crt(event) {
   // condicionais para controlar se o botão downlaod deve ou não aparecer E também se a seção seleção de arquivos deve ou não aparecer
   if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) {
     document.getElementsByClassName("download-button")[0].style.display = "inline-block";
+    document.getElementsByClassName("password")[0].style.display = "block";
     document.querySelector(".main").style.display = "none";
   } else {
     document.getElementsByClassName("download-button")[0].style.display = "none";
+    document.getElementsByClassName("password")[0].style.display = "none";
+    document.getElementById("senhaParaPFX").value = "";
     document.querySelector(".main").style.display = "grid";
   }
 
@@ -133,9 +138,13 @@ function escolherKey_Crt(event) {
     if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) { // 
       document.getElementsByClassName("download-button")[0].style.display = "inline-block";
       document.querySelector(".main").style.display = "none";
+      document.getElementsByClassName("password")[0].style.display = "block";
     } else {
       document.getElementsByClassName("download-button")[0].style.display = "none";
       document.querySelector(".main").style.display = "grid";
+      document.getElementsByClassName("password")[0].style.display = "none";
+      document.getElementById("senhaParaPFX").value = "";
+      
     }
 
     document.getElementById('file').files = dt.files; // Atualiza o FileList com os arquivos do armazenador temporário
@@ -237,7 +246,7 @@ function converterCrtAndKeyToPfx() {
 
 function converterPfxToCrtAndKey() {
   const elementInputPfx = document.getElementById('file').files[0];
-  
+
   if (elementInputPfx) {
     var reader = new FileReader();
     reader.readAsText(elementInputPfx, "UTF-8");

@@ -92,16 +92,16 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.main ,
-.main_inputs{
+.main,
+.main_inputs {
   display: grid;
   place-content: center;
   font-family: 'Poppins', sans-serif;
 }
 
-.main{
+.main {
   height: 46vh;
-} 
+}
 
 input[type="file"] {
   display: none;
@@ -159,11 +159,11 @@ label img {
   margin-top: 100px;
 }
 
-.grid_inputs:first-of-type{
+.grid_inputs:first-of-type {
   margin-top: 100px;
 }
 
-.grid_inputs:not(:first-of-type){
+.grid_inputs:not(:first-of-type) {
   margin-top: 20px;
 }
 
@@ -197,25 +197,26 @@ label img {
   cursor: pointer;
 }
 
-#msgForUser{
+#msgForUser {
   font-weight: bold;
 }
 
-.password{
+.password {
   border: 1px solid #333;
   width: 300px;
   background: #ffff;
   margin: 20px auto 0;
   border-radius: 5px;
+  display: none;
 }
 
-.row{
+.row {
   display: flex;
   align-items: center;
   padding: 10px 20px;
 }
 
-#senhaParaPFX{
+#senhaParaPFX {
   flex: 1;
   height: 25px;
   background: transparent;
