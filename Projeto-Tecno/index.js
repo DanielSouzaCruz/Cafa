@@ -259,7 +259,11 @@ function converterPfxToCrtAndKey() {
     reader.readAsArrayBuffer(elementInputPfx);
     reader.onload = function (event) {
       const pfxContent = new Uint8Array(event.target.result);
+      let pfxName = elementInputPfx.name;
+      pfxName = pfxName.split('.')[0];
+      
       const senhaPfx = document.getElementById("senhaParaPFX").value;
+
 
 
       try {
