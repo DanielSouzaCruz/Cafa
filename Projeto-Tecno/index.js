@@ -27,7 +27,7 @@ function escolherPfx(event) {
       document.getElementById("nomeArquivo").textContent = nome;
       document.getElementById("file").classList.add("hidden");
       document.querySelector(".container").style.display = "flex";
-      document.getElementsByClassName("password-name")[0].style.display = "block";
+      document.getElementsByClassName("password")[0].style.display = "block";
       document.getElementById("senhaParaPFX").value = "";
     }
   }
@@ -262,8 +262,6 @@ function converterPfxToCrtAndKey() {
       const pfxContent = new Uint8Array(event.target.result);
       const senhaPfx = document.getElementById("senhaParaPFX").value;
 
-      // Senha para o arquivo PFX
-      //const password = '1234561';
 
       try {
 
