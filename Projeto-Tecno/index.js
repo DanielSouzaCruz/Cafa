@@ -74,6 +74,7 @@ function fecharArquivoKey_Crt(event) {
       if (document.getElementById('keyFile').files.length == 0 && document.getElementById('crtFile').files.length == 0) { // Caso os dois inputs ocultos (crt e key) estejam vazios, atualiza a mensagem para comunicar o usuário o que ele deve fazer e define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt ou key
         document.getElementById("msgForUser").innerText = "Selecione um arquivo de cada vez (.crt ou .key)";
         document.getElementById("file").accept = ".crt,.key";
+        document.querySelector(".main").style.height = "46vh"; 
       }
     }
 
@@ -118,10 +119,12 @@ function escolherKey_Crt(event) {
       if (event.target.files[0].name.split('.').pop() == "crt") { // obtém a extensão do arquivo selecionado pelo usuário
         document.getElementById("crtFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files crt
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
+        document.querySelector(".main").style.height = "26vh"; 
         document.getElementById("file").accept = ".key"; // define o filtro de seleção de arquivos key
       } else {
         document.getElementById("keyFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files key
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
+        document.querySelector(".main").style.height = "26vh"; 
         document.getElementById("file").accept = ".crt"; // define o filtro de seleção de arquivos crt
       }
     }
@@ -187,17 +190,17 @@ function converterCrtAndKeyToPfx() {
         reader.onload = function (evt) {
 
           conteudoArquivoKey = evt.target.result;
-          alert("Conteúdo do arquivo " + elementInputCrt.path + ": \n" + conteudoArquivoCrt);
-          alert("Conteúdo do arquivo " + elementInputKey.path + ": \n" + conteudoArquivoKey);
+          // alert("Conteúdo do arquivo " + elementInputCrt.path + ": \n" + conteudoArquivoCrt);
+          // alert("Conteúdo do arquivo " + elementInputKey.path + ": \n" + conteudoArquivoKey);
 
-          const senha = "123456";
+          const senhaPfx = document.getElementById("senhaParaPFX").value;
 
           // Converter o conteúdo para o formato Forge
           const certAsn1 = forge.pki.certificateFromPem(conteudoArquivoCrt);
           const chaveAsn1 = forge.pki.privateKeyFromPem(conteudoArquivoKey);
 
           // Criar o objeto PKCS#12 (PFX)
-          const p12Asn1 = forge.pkcs12.toPkcs12Asn1(chaveAsn1, certAsn1, senha);
+          const p12Asn1 = forge.pkcs12.toPkcs12Asn1(chaveAsn1, certAsn1, senhaPfx);
 
           // Converter o objeto PKCS#12 para um ArrayBuffer
           const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
