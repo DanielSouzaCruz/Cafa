@@ -27,7 +27,7 @@ function escolherPfx(event) {
       document.getElementById("nomeArquivo").textContent = nome;
       document.getElementById("file").classList.add("hidden");
       document.querySelector(".container").style.display = "flex";
-      document.getElementsByClassName("password")[0].style.display = "block";
+      document.getElementsByClassName("password-name")[0].style.display = "block";
       document.getElementById("senhaParaPFX").value = "";
     }
   }
@@ -83,12 +83,13 @@ function fecharArquivoKey_Crt(event) {
   // condicionais para controlar se o botão downlaod deve ou não aparecer E também se a seção seleção de arquivos deve ou não aparecer
   if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) {
     document.getElementsByClassName("download-button")[0].style.display = "inline-block";
-    document.getElementsByClassName("password")[0].style.display = "block";
+    document.getElementsByClassName("password-name")[0].style.display = "block";
     document.querySelector(".main").style.display = "none";
   } else {
     document.getElementsByClassName("download-button")[0].style.display = "none";
-    document.getElementsByClassName("password")[0].style.display = "none";
+    document.getElementsByClassName("password-name")[0].style.display = "none";
     document.getElementById("senhaParaPFX").value = "";
+    document.getElementById("nomeParaPFX").value = "";
     document.querySelector(".main").style.display = "grid";
   }
 
@@ -141,13 +142,13 @@ function escolherKey_Crt(event) {
     if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) { // 
       document.getElementsByClassName("download-button")[0].style.display = "inline-block";
       document.querySelector(".main").style.display = "none";
-      document.getElementsByClassName("password")[0].style.display = "block";
+      document.getElementsByClassName("password-name")[0].style.display = "block";
     } else {
       document.getElementsByClassName("download-button")[0].style.display = "none";
       document.querySelector(".main").style.display = "grid";
-      document.getElementsByClassName("password")[0].style.display = "none";
+      document.getElementsByClassName("password-name")[0].style.display = "none";
       document.getElementById("senhaParaPFX").value = "";
-      
+      document.getElementById("nomeParaPFX").value = "";
     }
 
     document.getElementById('file').files = dt.files; // Atualiza o FileList com os arquivos do armazenador temporário
@@ -194,6 +195,7 @@ function converterCrtAndKeyToPfx() {
           // alert("Conteúdo do arquivo " + elementInputKey.path + ": \n" + conteudoArquivoKey);
 
           const senhaPfx = document.getElementById("senhaParaPFX").value;
+          const nomePfx = document.getElementById("nomeParaPFX").value;
 
           // Converter o conteúdo para o formato Forge
           const certAsn1 = forge.pki.certificateFromPem(conteudoArquivoCrt);
@@ -207,14 +209,13 @@ function converterCrtAndKeyToPfx() {
           const p12b64 = forge.util.encode64(p12Der);
 
           const a = document.createElement('a');
-          a.download = 'certificate.p12';
+          a.download = `${nomePfx}.p12`;
           a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
           a.appendChild(document.createTextNode('Download'));
           document.body.appendChild(a);
           a.click();
 
           document.body.removeChild(a);
-
           // Salvar arquivo PFX
           // fs.writeFileSync("C:\\", p12Der, { encoding: 'binary' });
 

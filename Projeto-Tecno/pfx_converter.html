@@ -31,7 +31,7 @@
   </header>
 
   <main class="main">
-    <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx">
+    <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx,.p12">
     <label for="file" id="file">
       <img src="images/upload.png" alt="upload de arquivo">Selecione o arquivo
     </label>
@@ -46,7 +46,7 @@
     </div>
     <div class="password">
       <div class="row">
-        <input type="text" id="senhaParaPFX" placeholder="Senha para Arquivo PFX">
+        <input type="text" id="senhaParaPFX" placeholder="Senha para Verificar Certificado"  autocomplete="off" style="width: 300px">
       </div>
     </div>
     <button class="download-button" onclick="converterPfxToCrtAndKey()">Download</button>

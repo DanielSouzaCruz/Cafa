@@ -203,28 +203,28 @@ label img {
   color: var(--cor-text-information);
 }
 
-.password {
-  border: 1px solid #333;
-  width: 300px;
+.password-name {
+  width: 620px; /* Adjust width as needed for both inputs */
   background: #ffff;
   margin: 20px auto 0;
   border-radius: 5px;
-  display: none;
 }
 
 .row {
   display: flex;
   align-items: center;
   padding: 10px 20px;
+  column-gap: 20px;
 }
 
-#senhaParaPFX {
+#senhaParaPFX,
+#nomeParaPFX {
   flex: 1;
-  height: 25px;
-  background: transparent;
-  border: 0;
+  border: 2px solid #442257;
   outline: 0;
   font-size: 18px;
-  color: #333;
+  color: #000000;
   text-align: center;
+  border-radius: 4px;
+  height: 40px;
 }
