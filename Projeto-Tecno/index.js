@@ -27,7 +27,7 @@ function escolherPfx(event) {
       document.getElementById("nomeArquivo").textContent = nome;
       document.getElementById("file").classList.add("hidden");
       document.querySelector(".container").style.display = "flex";
-      document.getElementsByClassName("password-name")[0].style.display = "block";
+      document.querySelector(".password-name").style.display = "block";
       document.getElementById("senhaParaPFX").value = "";
     }
   }
