@@ -74,7 +74,7 @@ function fecharArquivoKey_Crt(event) {
       if (document.getElementById('keyFile').files.length == 0 && document.getElementById('crtFile').files.length == 0) { // Caso os dois inputs ocultos (crt e key) estejam vazios, atualiza a mensagem para comunicar o usuário o que ele deve fazer e define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt ou key
         document.getElementById("msgForUser").innerText = "Selecione um arquivo de cada vez (.crt ou .key)";
         document.getElementById("file").accept = ".crt,.key";
-        document.querySelector(".main").style.height = "46vh"; 
+        document.querySelector(".main").style.height = "46vh";
       }
     }
 
@@ -120,12 +120,12 @@ function escolherKey_Crt(event) {
       if (event.target.files[0].name.split('.').pop() == "crt") { // obtém a extensão do arquivo selecionado pelo usuário
         document.getElementById("crtFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files crt
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
-        document.querySelector(".main").style.height = "26vh"; 
+        document.querySelector(".main").style.height = "26vh";
         document.getElementById("file").accept = ".key"; // define o filtro de seleção de arquivos key
       } else {
         document.getElementById("keyFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files key
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
-        document.querySelector(".main").style.height = "26vh"; 
+        document.querySelector(".main").style.height = "26vh";
         document.getElementById("file").accept = ".crt"; // define o filtro de seleção de arquivos crt
       }
     }
@@ -248,16 +248,68 @@ function converterCrtAndKeyToPfx() {
 
 }
 
+function arrayBufferToString(arrayBuffer) {
+  return String.fromCharCode.apply(null, new Uint8Array(arrayBuffer));
+}
+
 function converterPfxToCrtAndKey() {
   const elementInputPfx = document.getElementById('file').files[0];
 
   if (elementInputPfx) {
     var reader = new FileReader();
-    reader.readAsText(elementInputPfx, "UTF-8");
-    reader.onload = function (evt) {
-      var conteudoArquivoPfx = evt.target.result;
-      var senhaPfx = document.getElementById("senhaParaPFX").value;
-      alert(senhaPfx);
+    reader.readAsArrayBuffer(elementInputPfx);
+    reader.onload = function (event) {
+      const pfxContent = new Uint8Array(event.target.result);
+      const senhaPfx = document.getElementById("senhaParaPFX").value;
+
+      // Senha para o arquivo PFX
+      //const password = '1234561';
+
+      try {
+
+        // Decodificando o conteúdo do arquivo PFX
+        const p12Buffer = forge.util.createBuffer(arrayBufferToString(pfxContent));
+        const p12Asn1 = forge.asn1.fromDer(p12Buffer.getBytes());
+        const p12Parsed = forge.pkcs12.pkcs12FromAsn1(p12Asn1, false, senhaPfx);
+
+        // Obtendo a chave privada e o certificado
+        const key = p12Parsed.getBags({ bagType: forge.pki.oids.pkcs8ShroudedKeyBag })[forge.pki.oids.pkcs8ShroudedKeyBag][0];
+        const cert = p12Parsed.getBags({ bagType: forge.pki.oids.certBag })[forge.pki.oids.certBag][0];
+
+        // Convertendo a chave privada e o certificado para formato PEM
+        const privateKeyPem = forge.pki.privateKeyToPem(key.key);
+        const certPem = forge.pki.certificateToPem(cert.cert);
+
+        // Exibindo a chave privada e o certificado no console
+        /* console.log("Chave privada (KEY):");
+         console.log(privateKeyPem);
+ 
+         console.log("\nCertificado (CRT):");
+         console.log(certPem);*/
+
+        // Baixando os arquivos CRT e KEY
+        downloadFile(privateKeyPem, 'chave_privada.key', 'application/octet-stream');
+        downloadFile(certPem, 'certificado.crt', 'application/octet-stream');
+
+
+
+
+      } catch (error) {
+        alert("Senha inválida!! Tente novamente com uma senha válida. ");
+      }
+
     }
   }
+}
+
+function downloadFile(data, filename, type) {
+  const blob = new Blob([data], { type: type });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
