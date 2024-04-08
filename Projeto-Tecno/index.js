@@ -265,7 +265,6 @@ function converterPfxToCrtAndKey() {
       const senhaPfx = document.getElementById("senhaParaPFX").value;
 
 
-
       try {
 
         // Decodificando o conteúdo do arquivo PFX
@@ -289,11 +288,8 @@ function converterPfxToCrtAndKey() {
          console.log(certPem);*/
 
         // Baixando os arquivos CRT e KEY
-        downloadFile(privateKeyPem, 'chave_privada.key', 'application/octet-stream');
-        downloadFile(certPem, 'certificado.crt', 'application/octet-stream');
-
-
-
+        downloadFile(privateKeyPem, `${pfxName}.key`, 'application/octet-stream');
+        downloadFile(certPem, `${pfxName}.crt`, 'application/octet-stream');
 
       } catch (error) {
         alert("Senha inválida!! Tente novamente com uma senha válida. ");
