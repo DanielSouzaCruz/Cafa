@@ -27,7 +27,6 @@ function escolherPfx(event) {
       document.getElementById("nomeArquivo").textContent = nome;
       document.getElementById("file").classList.add("hidden");
       document.querySelector(".container").style.display = "flex";
-      document.querySelector(".password-name").style.display = "block";
       document.getElementById("senhaParaPFX").value = "";
     }
   }
@@ -209,7 +208,7 @@ function converterCrtAndKeyToPfx() {
           const p12b64 = forge.util.encode64(p12Der);
 
           const a = document.createElement('a');
-          a.download = `${nomePfx}.p12`;
+          a.download = `${nomePfx}.pfx`;
           a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
           a.appendChild(document.createTextNode('Download'));
           document.body.appendChild(a);
