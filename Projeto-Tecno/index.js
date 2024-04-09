@@ -195,7 +195,7 @@ function converterCrtAndKeyToPfx() {
           // alert("Conteúdo do arquivo " + elementInputKey.path + ": \n" + conteudoArquivoKey);
 
           const senhaPfx = document.getElementById("senhaParaPFX").value;
-          const nomePfx = document.getElementById("nomeParaPFX").value;
+          let nomePfx = document.getElementById("nomeParaPFX").value;
 
           // Converter o conteúdo para o formato Forge
           const certAsn1 = forge.pki.certificateFromPem(conteudoArquivoCrt);
@@ -208,6 +208,9 @@ function converterCrtAndKeyToPfx() {
           const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
           const p12b64 = forge.util.encode64(p12Der);
 
+          if(nomePfx == ""){
+            nomePfx = "certificate";
+          }
           const a = document.createElement('a');
           a.download = `${nomePfx}.pfx`;
           a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
