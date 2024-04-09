@@ -120,12 +120,12 @@ function escolherKey_Crt(event) {
       if (event.target.files[0].name.split('.').pop() == "crt") { // obtém a extensão do arquivo selecionado pelo usuário
         document.getElementById("crtFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files crt
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
-        document.querySelector(".main").style.height = "26vh";
+        document.querySelector(".main").style.height = "20vh";
         document.getElementById("file").accept = ".key"; // define o filtro de seleção de arquivos key
       } else {
         document.getElementById("keyFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files key
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
-        document.querySelector(".main").style.height = "26vh";
+        document.querySelector(".main").style.height = "20vh";
         document.getElementById("file").accept = ".crt"; // define o filtro de seleção de arquivos crt
       }
     }
