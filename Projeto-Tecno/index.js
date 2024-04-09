@@ -1,5 +1,4 @@
 const { app, BrowserWindow } = require('electron')
-const fs = require('fs');
 var forge = require('node-forge');
 
 const createWindow = () => {
@@ -292,7 +291,7 @@ function converterPfxToCrtAndKey() {
         downloadFile(certPem, `${pfxName}.crt`, 'application/octet-stream');
 
       } catch (error) {
-        alert("Senha inválida!! Tente novamente com uma senha válida. ");
+        createModal("Senha inválida! Tente novamente com uma senha válida.")
       }
 
     }
@@ -309,4 +308,41 @@ function downloadFile(data, filename, type) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+function createModal(message) {
+  const modalDiv = document.createElement('div');
+  modalDiv.classList.add('modal');
+
+  const contentDiv = document.createElement('div');
+  contentDiv.classList.add('modal_content');
+
+  const closeDiv = document.createElement('div');
+  closeDiv.classList.add('grid_close')
+
+  const messageContainer = document.createElement('div');
+  messageContainer.classList.add('grid_message');
+
+  const messageParagraph = document.createElement('p');
+  messageParagraph.id = 'mensagem';
+  messageParagraph.textContent = message;
+
+  const closeSpan = document.createElement('span');
+  closeSpan.classList.add('x');
+  closeSpan.textContent = 'X';
+  closeSpan.addEventListener('click', function closeModal() {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+      modal.parentNode.removeChild(modal);
+      inputBox.setAttribute('readonly', true);
+    }
+  });
+
+  closeDiv.appendChild(closeSpan);
+  messageContainer.appendChild(messageParagraph);
+  contentDiv.appendChild(closeDiv);
+  contentDiv.appendChild(messageContainer);
+  modalDiv.appendChild(contentDiv);
+  document.body.appendChild(modalDiv);
+
 }

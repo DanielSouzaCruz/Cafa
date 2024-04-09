@@ -228,3 +228,54 @@ label img {
   border-radius: 4px;
   height: 40px;
 }
+
+.modal {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  width: 320px;
+  height: 200px;
+  background-color: black;
+  color: white;
+  border-radius: 40px;
+  border: 1px solid white;
+}
+
+.modal_content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#mensagem{
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  margin: 0 auto;
+}
+
+.x {
+  cursor: pointer;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #ff0000;
+  &:hover{
+  background-color: #920303;
+  }
+}
+
+.grid_close {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 16px;
+  margin-top: 15px;
+}
