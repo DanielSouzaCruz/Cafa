@@ -164,7 +164,7 @@ function escolherKey_Crt(event) {
 
       document.getElementById("containerArquivos").innerHTML += `
   <div class="grid_inputs">
-    <img src="images/file-text.png" alt="arquivo" class="arquive">
+    <img src="images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
     <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${arquivo.name}">${nomeAExibir}</p>
     <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
   </div>

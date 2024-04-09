@@ -160,7 +160,7 @@ label img {
 }
 
 .grid_inputs:first-of-type {
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 .grid_inputs:not(:first-of-type) {
@@ -174,14 +174,13 @@ label img {
 .close {
   margin-right: 8px;
   cursor: pointer;
+  border: 2px solid #ff0000;
+  border-radius: 12px;
 }
 
 .file-name {
   font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Secular One', sans-serif;
 }
 
 .download-button {
