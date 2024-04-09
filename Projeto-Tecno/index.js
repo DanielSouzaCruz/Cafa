@@ -22,8 +22,10 @@ function escolherPfx(event) {
     const arquivo = event.target.files[0];
 
     if (arquivo) {
-      const nome = arquivo.name.substring(0, 25);
-      document.getElementById("nomeArquivo").textContent = nome;
+      const nome = arquivo.name.length > 25 ? arquivo.name.substring(0, 25) + "..." : arquivo.name;
+      
+      document.getElementById("nomeArquivo").innerText = nome;
+
       document.getElementById("file").classList.add("hidden");
       document.querySelector(".container").style.display = "flex";
       document.getElementById("senhaParaPFX").value = "";
@@ -260,7 +262,7 @@ function converterPfxToCrtAndKey() {
       const pfxContent = new Uint8Array(event.target.result);
       let pfxName = elementInputPfx.name;
       pfxName = pfxName.split('.')[0];
-      
+
       const senhaPfx = document.getElementById("senhaParaPFX").value;
 
 
