@@ -3,30 +3,24 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Risque&family=Roboto+Condensed:wght@100..900&family=Secular+One&display=swap"
-    rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="index.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../favicon/favicon.ico" type="image/x-icon">
   <title>Crt + Key Converter</title>
 </head>
 
 <body>
 
   <header class="header">
-    <a href="index.html">
-      <img class="logo" src="images/tecnospeed-white.svg" alt="logo TecnoSpeed">
+    <a href="../front_end_html/index.html">
+      <img class="logo" src="../images/tecnospeed-white.svg" alt="logo TecnoSpeed">
     </a>
     <div class="navbar">
       <ul>
-        <li><a href="pfx_converter.html">.PFX para .KEY + .CRT</a></li>
-        <li><a href="crt+key_converter.html">.KEY + .CRT para .PFX</a></li>
+        <li><a href="../front_end_html/pfx_converter.html">.PFX para .KEY + .CRT</a></li>
+        <li><a href="../front_end_html/crt+key_converter.html">.KEY + .CRT para .PFX</a></li>
       </ul>
     </div>
   </header>
@@ -34,7 +28,7 @@
   <div class="container" style="display: none;">
     <div id="containerArquivos">
       <div class="grid_inputs">
-        <img src="images/file-image.png" alt="arquivo" class="arquive">
+        <img src="../images/file-image.png" alt="arquivo" class="arquive">
         <p class="file-name" id="nomeArquivo"></p>
         <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt()">
       </div>
@@ -53,7 +47,7 @@
     <input type="file" id="crtFile" style="display:none">
     <input type="file" id="keyFile" style="display:none">
     <label for="file">
-      <img src="images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione os arquivos
+      <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione os arquivos
     </label>
     <p id="msgForUser">Selecione um arquivo de cada vez (.crt ou .key)</p>
   </main>

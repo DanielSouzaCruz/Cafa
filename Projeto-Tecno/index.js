@@ -3,11 +3,13 @@ var forge = require('node-forge');
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
+    minWidth: 800, 
+    minHeight: 600,
   })
 
-  win.loadFile('index.html')
+  win.loadFile("front_end_html/index.html")
 }
 
 app.whenReady().then(() => {
@@ -164,9 +166,9 @@ function escolherKey_Crt(event) {
 
       document.getElementById("containerArquivos").innerHTML += `
   <div class="grid_inputs">
-    <img src="images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
+    <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
     <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${arquivo.name}">${nomeAExibir}</p>
-    <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
+    <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
   </div>
   `;
     }

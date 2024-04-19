@@ -1,8 +1,33 @@
 :root {
-  --cor-header: #49235A;
+  --cor-header: #330253;
   --cor-download-button: #5C2C72;
   --cor-buttons-navbar: #622F7A;
   --cor-text-information : #442257;
+}
+
+@font-face {
+  font-family: OpenSans;
+  src: url('../fonts/OpenSans-Medium.ttf');
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url('../fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('../fonts/RobotoCondensed-Medium.ttf');
+}
+
+@font-face {
+  font-family: Secular One;
+  src: url('../fonts/SecularOne-Regular.ttf');
+}
+
+@font-face {
+  font-family: Avilock;
+  src: url('../fonts/Avilock\ Bold.ttf');
 }
 
 * {
@@ -12,7 +37,7 @@
   text-decoration: none;
   list-style: none;
   box-sizing: border-box;
-  font-family: roboto condensed, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -29,7 +54,7 @@ body {
 }
 
 .header {
-  height: 80px;
+  height: 60px;
   top: 0;
   left: 0;
   width: 100%;
@@ -62,17 +87,23 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-.content {
-  padding-top: 180px;
+.name{
+  margin: 20px 15px;
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
+.content {
+  column-gap: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   p {
-    padding-top: 50px;
-    font-family: "Risque", sans-serif;
-    font-size: 48px;
-    color: var(--cor-buttons-navbar);
+    font-family: "Avilock", sans-serif;
+    font-size: 24px;
+    color: var(--cor-header);
   }
 }
 
@@ -80,9 +111,21 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Secular One", sans-serif;
-  font-size: 16px;
-  color: var(--cor-text-information);
+  font-family: "Avilock", sans-serif;
+  font-size: 24px;
+  color: var(--cor-header);
+  margin: 10px auto;
+}
+
+#div-branca {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  width: 80%;
+  height: 80%;
+  background-color: #ffffff;
+  border-radius: 12px;
 }
 
 .input-content {
@@ -179,7 +222,7 @@ label img {
 
 .file-name {
   font-size: 20px;
-  font-family: 'Secular One', sans-serif;
+  font-family: "Secular One", sans-serif;
 }
 
 .download-button {
@@ -195,7 +238,7 @@ label img {
 }
 
 #msgForUser {
-  font-family: "Poppins", 'Roboto Condensed';
+  font-family: "Poppins", "Roboto";
   font-weight: bold;
   color: var(--cor-text-information);
 }
@@ -283,4 +326,35 @@ label img {
 
 input::placeholder{
   color: #442257;
+}
+
+.selection{
+  cursor: pointer;
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  width: 90%;
+  height: 60%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 2px dashed #5d5a5e;
+  &:hover{
+    border: 2px dashed #70008b;
+  }
+}
+
+.acceptance_of_terms {
+  cursor: pointer;
+  display: flex;
+  position: fixed;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  p{
+    font-family: "Avilock", sans-serif;
+    color: var(--cor-header);
+  }
 }
