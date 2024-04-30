@@ -2,7 +2,7 @@
   "name": "projeto-tecno",
   "version": "1.0.0",
   "description": "",
-  "main": "back-end.js",
+  "main": "front-end.js",
   "scripts": {
     "start": "electron ."
   },

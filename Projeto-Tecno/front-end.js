@@ -2,14 +2,12 @@ const { app, BrowserWindow } = require('electron')
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1280,
-    height: 720,
-    minWidth: 800, 
-    minHeight: 600,
+    minWidth: 800,
+    minHeight: 720,
   })
 
   win.loadFile("front_end_html/index.html")
 }
-
 
 app.whenReady().then(() => {
   createWindow()
@@ -242,8 +240,8 @@ function mudarCorFundo(element) {
     <button class="download-button" onclick="converterPfxToCrtAndKey()">Download</button>
   </div>
   `;
-  divSelection.innerHTML = pfx_file;
-  } else{
+    divSelection.innerHTML = pfx_file;
+  } else {
     divSelection.innerHTML = '';
     const key_crt_file = `
     <div class="container" style="display: none;">
@@ -274,5 +272,5 @@ function mudarCorFundo(element) {
   </main>
     `
     divSelection.innerHTML = key_crt_file;
-  } 
+  }
 }
