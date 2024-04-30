@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
-  <script src="../index.js"></script>
+  <script src="../back-end.js"></script>
+  <script src="../front-end.js"></script>
+  <script src="../crt+key_functions.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
   <link rel="shortcut icon" href="../favicon/favicon.ico" type="image/x-icon">
   <title>Pfx Converter</title>
@@ -25,8 +27,8 @@
   </header>
 
   <main class="main">
-      <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx,.p12">
-      <label for="file" id="file">
+    <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx,.p12">
+    <label for="file" id="file">
       <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione o arquivo
     </label>
     <p id="msgForUser">Selecione um arquivo (.pfx)</p>
@@ -49,4 +51,5 @@
 
 
 </body>
+
 </html>
