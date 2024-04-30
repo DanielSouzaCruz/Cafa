@@ -1,5 +1,5 @@
 # Cafa
-Conversor de arquivos .pfx e .key+.crt
+Conversor de arquivos .pfx e .key + .crt
 
 
 ## Testes OPENSSL
