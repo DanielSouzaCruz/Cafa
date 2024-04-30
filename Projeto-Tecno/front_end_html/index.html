@@ -4,32 +4,37 @@
 <head>
   <link rel="stylesheet" href="../css/style.css">
   <meta charset="UTF-8">
+  <script src="../front-end.js"></script>
+  <script src="../back-end.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
   <link rel="shortcut icon" href="../favicon/favicon.ico" type="image/x-icon">
   <title>C.A.F.A</title>
 </head>
 
-<body style="background-color: var(--cor-header);">
+<body style="background-color: var(--cor-base);">
   <header class="header">
     <img class="logo" src="../images/tecnospeed-white.svg" alt="logo TecnoSpeed" style="cursor: pointer;">
-    <img style="height: 50px;" src="../images/logo app.png" alt="teste">
   </header>
 
   <div id="div-branca">
     <div class="name"> 
       <div class="content">       
-        <img src="../images/logo app.png" alt="Logo da C.A.F.A" style="height: 30px; width: 30px;">
+        <img src="../images/logo app.png" alt="Logo da C.A.F.A" style="height: 50px; width: 50px;">
         <p>C.A.F.A</p>
       </div>
       <div>
         <p class="subtext">Conversor de arquivos para facilitar o atendimento</p>
       </div>    
     </div>
-    <div class="selection">
+    <div class="segment">
       <ul>
-        <li><a href="../front_end_html/pfx_converter.html">.PFX para .KEY + .CRT</a></li>
-        <li><a href="../front_end_html/crt+key_converter.html">.KEY + .CRT para .PFX</a></li>
+        <li onclick="mudarCorFundo(this)" id="pfx_file">.PFX para .KEY + .CRT</li>
+        <li onclick="mudarCorFundo(this)" id="key+crt_file">.KEY + .CRT para .PFX</li>
       </ul>
+    </div>
+    <div class="selection">    
+    
     </div>
     <!--termos de uso para ser colocado-->
     <div class="acceptance_of_terms">

@@ -1,5 +1,5 @@
 :root {
-  --cor-header: #330253;
+  --cor-base: #330253;
   --cor-download-button: #5C2C72;
   --cor-buttons-navbar: #622F7A;
   --cor-text-information : #442257;
@@ -59,7 +59,7 @@ body {
   left: 0;
   width: 100%;
   padding: 8px 8px;
-  background: var(--cor-header);
+  background: var(--cor-base);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,11 +88,11 @@ body {
 }
 
 .name{
-  margin: 20px 15px;
   flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 4px;
 }
 
 .content {
@@ -103,7 +103,7 @@ body {
   p {
     font-family: "Avilock", sans-serif;
     font-size: 24px;
-    color: var(--cor-header);
+    color: var(--cor-base);
   }
 }
 
@@ -113,7 +113,7 @@ body {
   align-items: center;
   font-family: "Avilock", sans-serif;
   font-size: 24px;
-  color: var(--cor-header);
+  color: var(--cor-base);
   margin: 10px auto;
 }
 
@@ -155,7 +155,7 @@ label {
   color: #ffffff;
   border-radius: 4px;
   padding: 15px 40px;
-  background-color: var(--cor-header);
+  background-color: var(--cor-base);
   margin: auto;
   font-size: 36px;
   display: flex;
@@ -198,15 +198,15 @@ label img {
 }
 
 .grid {
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .grid_inputs:first-of-type {
-  margin-top: 80px;
+  margin-top: 15px;
 }
 
 .grid_inputs:not(:first-of-type) {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .arquive {
@@ -225,7 +225,8 @@ label img {
   font-family: "Secular One", sans-serif;
 }
 
-.download-button {
+.download-button,
+.download-button-files {
   margin-top: 20px;
   border: 2px solid var(--cor-download-button);
   padding: 12px 20px; 
@@ -237,6 +238,10 @@ label img {
   box-shadow: inset 60px 60px 36px -74px rgba(31,1,31,0.80);
 }
 
+.download-button-files {
+  margin-top: -1px;
+}
+
 #msgForUser {
   font-family: "Poppins", "Roboto";
   font-weight: bold;
@@ -246,7 +251,7 @@ label img {
 .password-name {
   width: 620px; /* Adjust width as needed for both inputs */
   background: #ffff;
-  margin: 20px auto 0;
+  margin: 2px auto 0;
   border-radius: 5px;
 }
 
@@ -330,37 +335,37 @@ input::placeholder{
 
 .selection{
   cursor: pointer;
-  display: flex;
   position: fixed;
-  top: 50%;
+  top: 57%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   width: 90%;
-  height: 60%;
+  height: 62%;
   background-color: #ffffff;
   border-radius: 12px;
+  border-style: dashed;
 }
 
-.selection ul {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  grid-gap: 50px;
+.segment {
+  padding-left: 40px;
+  ul {
+    display: flex;
+    cursor: pointer;
+  }
 }
 
-.selection ul li a{
+.segment ul li {
   box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.30);
   display: block;
   color: #ffffff;
-  padding: 15px 40px;
-  border-radius: 12px;
-  background-color: var(--cor-buttons-navbar);
+  padding: 10px 25px;
+  border-radius: 6px;
+  background-color: #808080;
   margin: 0 5px;
   text-align: center;
   font-family: "Poppins", sans-serif;
-  cursor: pointer;
+  font-size: 8px;
+  text-shadow: 1px -1px #808080; 
 }
 
 .acceptance_of_terms {
@@ -373,6 +378,11 @@ input::placeholder{
   width: 90%;
   p{
     font-family: "Avilock", sans-serif;
-    color: var(--cor-header);
+    color: var(--cor-base);
+    margin-top: 24px;
   }
+}
+
+.segment ul li.active {
+  background-color: var(--cor-base); /* Altere para a cor roxa desejada */
 }

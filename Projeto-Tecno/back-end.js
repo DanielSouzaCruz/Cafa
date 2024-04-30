@@ -1,21 +1,4 @@
-const { app, BrowserWindow } = require('electron')
 var forge = require('node-forge');
-
-const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 1280,
-    height: 720,
-    minWidth: 800, 
-    minHeight: 600,
-  })
-
-  win.loadFile("front_end_html/index.html")
-}
-
-app.whenReady().then(() => {
-  createWindow()
-})
-
 function converterCrtAndKeyToPfx() {
   const elementInputCrt = document.getElementById('crtFile').files[0];
   const elementInputKey = document.getElementById('keyFile').files[0];
@@ -157,3 +140,4 @@ function downloadFile(data, filename, type) {
   link.click();
   document.body.removeChild(link);
 }
+

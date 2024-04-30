@@ -1,3 +1,20 @@
+const { app, BrowserWindow } = require('electron')
+const createWindow = () => {
+  const win = new BrowserWindow({
+    width: 1280,
+    height: 720,
+    minWidth: 800, 
+    minHeight: 600,
+  })
+
+  win.loadFile("front_end_html/index.html")
+}
+
+
+app.whenReady().then(() => {
+  createWindow()
+})
+
 function escolherKey_Crt(event) {
 
   if (event.target.files && event.target.files[0]) {
@@ -34,11 +51,11 @@ function escolherKey_Crt(event) {
 
     // condicionais para controlar se o botão downlaod deve ou não aparecer E também se a seção seleção de arquivos deve ou não aparecer
     if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) { // 
-      document.getElementsByClassName("download-button")[0].style.display = "inline-block";
+      document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
       document.querySelector(".main").style.display = "none";
       document.getElementsByClassName("password-name")[0].style.display = "block";
     } else {
-      document.getElementsByClassName("download-button")[0].style.display = "none";
+      document.getElementsByClassName("download-button-files")[0].style.display = "none";
       document.querySelector(".main").style.display = "grid";
       document.getElementsByClassName("password-name")[0].style.display = "none";
       document.getElementById("senhaParaPFX").value = "";
@@ -76,7 +93,7 @@ function escolherPfx(event) {
 
     if (arquivo) {
       const nome = arquivo.name.length > 25 ? arquivo.name.substring(0, 25) + "..." : arquivo.name;
-      
+
       document.getElementById("nomeArquivo").innerText = nome;
 
       document.getElementById("file").classList.add("hidden");
@@ -135,7 +152,7 @@ function fecharArquivoKey_Crt(event) {
 
   // condicionais para controlar se o botão downlaod deve ou não aparecer E também se a seção seleção de arquivos deve ou não aparecer
   if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) {
-    document.getElementsByClassName("download-button")[0].style.display = "inline-block";
+    document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
     document.getElementsByClassName("password-name")[0].style.display = "block";
     document.querySelector(".main").style.display = "none";
   } else {
@@ -191,5 +208,71 @@ function createModal(message) {
   contentDiv.appendChild(messageContainer);
   modalDiv.appendChild(contentDiv);
   document.body.appendChild(modalDiv);
+}
 
+function mudarCorFundo(element) {
+  const itensLista = document.querySelectorAll(".segment ul li");
+  itensLista.forEach(item => item.classList.remove("active"));
+  element.classList.add("active");
+  const divSelection = document.querySelector('.selection');
+
+  if (element.classList.contains("active") && element.id === "pfx_file") {
+    divSelection.innerHTML = '';
+    const pfx_file = `
+    <main class="main">
+      <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx,.p12">
+      <label for="file" id="file">
+        <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione o arquivo
+      </label>
+      <p id="msgForUser">Selecione um arquivo (.pfx)</p>
+    </main>
+
+    <div class="container" style="display: none;">
+    <div class="grid">
+      <img src="../images/file-image.png" alt="arquivo" class="arquive" style="width: 40px;">
+      <p class="file-name" id="nomeArquivo"></p>
+      <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivo()">
+    </div>
+    <div class="password-name">
+      <div class="row">
+        <input type="text" id="senhaParaPFX" placeholder="Senha para Verificar Certificado" autocomplete="off"
+          style="width: 300px">
+      </div>
+    </div>
+    <button class="download-button" onclick="converterPfxToCrtAndKey()">Download</button>
+  </div>
+  `;
+  divSelection.innerHTML = pfx_file;
+  } else{
+    divSelection.innerHTML = '';
+    const key_crt_file = `
+    <div class="container" style="display: none;">
+    <div id="containerArquivos">
+      <div class="grid_inputs">
+        <img src="../images/file-image.png" alt="arquivo" class="arquive">
+        <p class="file-name" id="nomeArquivo"></p>
+        <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt()">
+      </div>
+    </div>
+    <div class="password-name">
+      <div class="row">
+        <input type="text" id="nomeParaPFX" placeholder="Nome para Certificado"  autocomplete="off">
+        <input type="text" id="senhaParaPFX" placeholder="Senha para Converter"  autocomplete="off">
+      </div>
+    </div>
+    <button class="download-button-files" onclick="converterCrtAndKeyToPfx()">Download</button>
+  </div>
+
+  <main class="main">
+    <input onchange="escolherKey_Crt(event)" type="file" id="file" accept=".crt,.key">
+    <input type="file" id="crtFile" style="display:none">
+    <input type="file" id="keyFile" style="display:none">
+    <label for="file">
+      <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione os arquivos
+    </label>
+    <p id="msgForUser">Selecione um arquivo de cada vez (.crt ou .key)</p>
+  </main>
+    `
+    divSelection.innerHTML = key_crt_file;
+  } 
 }
