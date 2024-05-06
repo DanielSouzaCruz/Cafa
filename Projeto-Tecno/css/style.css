@@ -246,7 +246,7 @@ label img {
 #msgForUser {
   font-family: "Poppins", "Roboto";
   font-weight: bold;
-  color: var(--cor-text-information);
+  color: white;
 }
 
 .password-name {
@@ -349,15 +349,16 @@ input::placeholder{
 
 .glow::before, .glow::after{
   content: '';
-  position: absolute;
-  left: -2px;
-  top: -2px;
-  background: linear-gradient(45deg, #e6fb04 , #ff6600, #00ff66, #00ffff,
-  #ff00ff, #ff0099, #6e0dd0, #ff3300, #099fff);
+  position:absolute;
+  border-radius:10px;
+  left: -1px;
+  top: -1px;
+  background: linear-gradient(45deg, #8f27ff , #4B0082, #800080, #9d1ec3,
+  #c403f9, #ff00ff, #6e0dd0, #33006F, #7b1ffd);
   background-size: 400%;
   width: calc(100% + 1px);
-  height: calc(100% + 1px);
-  z-index: -2;
+  height: calc(100% + 2px);
+  z-index: -1;
   animation: animate 20s linear infinite;
 
 
