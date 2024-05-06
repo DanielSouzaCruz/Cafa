@@ -154,7 +154,7 @@ function fecharArquivoKey_Crt(event) {
     document.getElementsByClassName("password-name")[0].style.display = "block";
     document.querySelector(".main").style.display = "none";
   } else {
-    document.getElementsByClassName("download-button")[0].style.display = "none";
+    document.getElementsByClassName("download-button-files")[0].style.display = "none";
     document.getElementsByClassName("password-name")[0].style.display = "none";
     document.getElementById("senhaParaPFX").value = "";
     document.getElementById("nomeParaPFX").value = "";
@@ -287,14 +287,14 @@ function dropHandler(event) {
       // If dropped items aren't files, reject them
       if (item.kind === "file") {
         file = item.getAsFile();
-        console.log(`… file[${i}].name = ${file.name}`);        
+        console.log(`… file[${i}].name = ${file.name}`);
         dt.items.add(file);
-        
+
 
       }
     });
-    
-    if(dt.files.length != 0){
+
+    if (dt.files.length != 0) {
       console.log(dt.files);
       document.getElementById('file').files = dt.files;
       const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
@@ -306,7 +306,7 @@ function dropHandler(event) {
       document.getElementById("senhaParaPFX").value = "";
       document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
     }
-   
+
   } else {
     // Use DataTransfer interface to access the file(s)
     [...event.dataTransfer.files].forEach((file, i) => {
@@ -322,6 +322,6 @@ function dragOverHandler(ev) {
 
 }
 
-function dropHandlerTwoFiles(){
-  
+function dropHandlerTwoFiles() {
+
 }
