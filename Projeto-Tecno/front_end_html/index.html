@@ -8,6 +8,8 @@
   <script src="../back-end.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <link rel="shortcut icon" href="../favicon/favicon.ico" type="image/x-icon">
   <title>C.A.F.A</title>
 </head>
@@ -33,7 +35,7 @@
         <li onclick="mudarCorFundo(this)" id="key+crt_file">.KEY + .CRT para .PFX</li>
       </ul>
     </div>
-    <div class="selection">    
+    <div class="selection" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">    
     
     </div>
     <!--termos de uso para ser colocado-->

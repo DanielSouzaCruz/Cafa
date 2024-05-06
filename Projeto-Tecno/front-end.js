@@ -274,3 +274,54 @@ function mudarCorFundo(element) {
     divSelection.innerHTML = key_crt_file;
   }
 }
+
+function dropHandler(event) {
+
+  event.preventDefault();
+
+  if (event.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    const dt = new DataTransfer();
+    let file;
+    [...event.dataTransfer.items].forEach((item, i) => {
+      // If dropped items aren't files, reject them
+      if (item.kind === "file") {
+        file = item.getAsFile();
+        console.log(`… file[${i}].name = ${file.name}`);        
+        dt.items.add(file);
+        
+
+      }
+    });
+    
+    if(dt.files.length != 0){
+      console.log(dt.files);
+      document.getElementById('file').files = dt.files;
+      const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
+
+      document.getElementById("nomeArquivo").innerText = nome;
+
+      document.getElementById("file").classList.add("hidden");
+      document.querySelector(".container").style.display = "flex";
+      document.getElementById("senhaParaPFX").value = "";
+      document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
+    }
+   
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    [...event.dataTransfer.files].forEach((file, i) => {
+      console.log(`… file[${i}].name = ${file.name}`);
+    });
+  }
+}
+
+function dragOverHandler(ev) {
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+}
+
+function dropHandlerTwoFiles(){
+  
+}
