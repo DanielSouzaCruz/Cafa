@@ -63,18 +63,15 @@ function converterCrtAndKeyToPfx() {
           document.body.removeChild(linkDownload);*/
 
         }
-
         reader.onerror = function (evt) {
-          console.log("Erro");
+          notification("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")
         }
       }
     }
     reader.onerror = function (evt) {
-      console.log("Erro");
+      notification("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")    
     }
   }
-
-
 }
 
 function arrayBufferToString(arrayBuffer) {

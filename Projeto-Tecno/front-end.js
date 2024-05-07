@@ -122,8 +122,6 @@ function fecharArquivoKey_Crt(event) {
 
   const nomeCompletoArquivo = event.target.parentElement.querySelector('#nomeArquivo').dataset.nomecompletoarquivo;
 
-  console.log("Nome do arquivo completo que será removido: " + nomeCompletoArquivo);
-
   // Criar um 'armazenador' temporário para armazenar os Arquivos que DEVEM continuar no FileList
   const dt = new DataTransfer();
 
@@ -181,43 +179,7 @@ function fecharArquivoKey_Crt(event) {
 
 }
 
-
-function createModal(message) {
-  const modalDiv = document.createElement('div');
-  modalDiv.classList.add('modal');
-
-  const contentDiv = document.createElement('div');
-  contentDiv.classList.add('modal_content');
-
-  const closeDiv = document.createElement('div');
-  closeDiv.classList.add('grid_close')
-
-  const messageContainer = document.createElement('div');
-  messageContainer.classList.add('grid_message');
-
-  const messageParagraph = document.createElement('p');
-  messageParagraph.id = 'mensagem';
-  messageParagraph.textContent = message;
-
-  const closeSpan = document.createElement('span');
-  closeSpan.classList.add('x');
-  closeSpan.textContent = 'X';
-  closeSpan.addEventListener('click', function closeModal() {
-    const modal = document.querySelector('.modal');
-    if (modal) {
-      modal.parentNode.removeChild(modal);
-    }
-  });
-
-  closeDiv.appendChild(closeSpan);
-  messageContainer.appendChild(messageParagraph);
-  contentDiv.appendChild(closeDiv);
-  contentDiv.appendChild(messageContainer);
-  modalDiv.appendChild(contentDiv);
-  document.body.appendChild(modalDiv);
-}
-
-function mudarCorFundo(element) {
+function select_converter(element) {
   const itensLista = document.querySelectorAll(".segment ul li");
   itensLista.forEach(item => item.classList.remove("active"));
   element.classList.add("active");
@@ -301,14 +263,11 @@ function notification(e){
       border: "2px solid #622F7A"
     }
   }).showToast();
-  
 }
-
 
 function dropHandler(event) {
 
   event.preventDefault();
-  console.log("DROP")
   if (event.dataTransfer.items) {
     // Use DataTransferItemList interface to access the file(s)
     const dt = new DataTransfer();
@@ -317,21 +276,15 @@ function dropHandler(event) {
       // If dropped items aren't files, reject them
       if (item.kind === "file") {
         file = item.getAsFile();
-        console.log(`… file[${i}].name = ${file.name}`);
         dt.items.add(file);
-
 
       }
     });
 
     if (dt.files.length != 0) {
 
-
-
       document.getElementById('pfxFile').files = dt.files;
 
-
-      console.log("Adicionado arquivo " + file.name)
       const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
 
       document.getElementById("nomeArquivo").innerText = nome;
@@ -346,8 +299,10 @@ function dropHandler(event) {
 }
 
 function dragOverHandler(ev) {
-
-  // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
-
+  const divSelection = document.querySelector('.selection');
+  divSelection.style.border = '1px dashed #330253'
+  ev.target.addEventListener('dragleave', function() {
+   divSelection.style.border = 'none'; 
+  });
 }

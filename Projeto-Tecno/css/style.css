@@ -144,7 +144,7 @@ body {
 }
 
 .main {
-  height: 46vh;
+  height: 49vh;
 
 }
 
@@ -341,7 +341,6 @@ input::placeholder {
 }
 
 .selection {
-  cursor: pointer;
   position: fixed;
   top: 57%;
   left: 50%;
@@ -350,7 +349,6 @@ input::placeholder {
   height: 62%;
   background-color: #ffffff;
   border-radius: 12px;
-  border-style: dashed;
 }
 
 .glow::before,

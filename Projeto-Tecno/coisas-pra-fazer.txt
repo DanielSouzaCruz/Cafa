@@ -1,0 +1,12 @@
+* No drag and drop do pfx que é o único que tem, a gente pode arrastar qualquer arquivo pra lá,
+  ou seja temos que fazer o seguinte, se a pessoa tentar arrastar um arquivo que nao seja do tipo
+  correto, exemplo:
+  element.classList.contains("active") && element.id === "pfx_file" nisso no front-end, é oq faz aparecer 
+  aquele input e label do pfx, nesse input ja tá pro .pfx e .12 ou seja nao importa se clicando na label
+  aparecer o dialog, so vai poder o pfx, mas se abrir explorador de arquivos do windows pode arrastar qualquer 
+  arquivo
+
+* Colocar drag and drop no crt + key, além de fazer a mesma verificação do tópico a cima
+
+* Melhorar o código, deixar padronizado, exemplo:
+  padronizar variável, função

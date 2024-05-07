@@ -33,13 +33,11 @@
     </div>
     <div class="segment">
       <ul>
-        <li onclick="mudarCorFundo(this)" id="pfx_file">.PFX para .KEY + .CRT</li>
-        <li onclick="mudarCorFundo(this)" id="key+crt_file">.KEY + .CRT para .PFX</li>
+        <li onclick="select_converter(this)" id="pfx_file">.PFX para .KEY + .CRT</li>
+        <li onclick="select_converter(this)" id="key+crt_file">.KEY + .CRT para .PFX</li>
       </ul>
     </div>
-    <div class="selection" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" data-modo-atual-conversao="">    
-    
-    </div>
+    <div class="selection" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" data-modo-atual-conversao=""></div>
     <!--termos de uso para ser colocado-->
     <div class="acceptance_of_terms">
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est perferendis voluptates amet, ut facilis fuga, commodi aliquam id quod quasi nostrum. Quo optio recusandae molestiae non, totam nobis saepe culpa.</p>
