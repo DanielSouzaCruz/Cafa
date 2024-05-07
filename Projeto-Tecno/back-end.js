@@ -122,7 +122,7 @@ function converterPfxToCrtAndKey() {
         downloadFile(certPem, `${pfxName}.crt`, 'application/octet-stream');
 
       } catch (error) {
-        createModal("Senha inválida! Tente novamente com uma senha válida.")
+        notification("Senha inválida! Tente novamente com uma senha válida.")
       }
 
     }
