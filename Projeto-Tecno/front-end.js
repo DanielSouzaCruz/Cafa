@@ -13,8 +13,10 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-function escolherKey_Crt(event) {
+var dialogInputSelectionFileEstaAberto;
 
+function escolherKey_Crt(event) {
+  dialogInputSelectionFileEstaAberto = false;
   if (event.target.files && event.target.files[0]) {
     document.getElementById("containerArquivos").innerHTML = ""; // remove qualquer elemento filho do div que mostra os arquivos selecionados
     //document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
@@ -83,6 +85,8 @@ function escolherKey_Crt(event) {
 }
 
 function escolherPfx(event) {
+  event.preventDefault();
+
   document.querySelector(".main").style.display = "none";
   document.getElementById("file").click();
 
@@ -90,6 +94,11 @@ function escolherPfx(event) {
     const arquivo = event.target.files[0];
 
     if (arquivo) {
+
+      const dt = new DataTransfer();
+      dt.items.add(arquivo);
+      document.getElementById('pfxFile').files = dt.files;
+      
       const nome = arquivo.name.length > 25 ? arquivo.name.substring(0, 25) + "..." : arquivo.name;
 
       document.getElementById("nomeArquivo").innerText = nome;
@@ -216,10 +225,12 @@ function mudarCorFundo(element) {
 
   if (element.classList.contains("active") && element.id === "pfx_file") {
     divSelection.innerHTML = '';
+    document.getElementsByClassName('selection')[0].setAttribute("modo-atual-conversao", "PFX");
     const pfx_file = `
     <main class="main">
+     <input type="file" id="pfxFile" style="display:none">
       <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx,.p12">
-      <label for="file" id="file">
+      <label class="botaoSelecionarFiles" for="file" id="file"">
         <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione o arquivo
       </label>
       <p id="msgForUser">Selecione um arquivo (.pfx)</p>
@@ -243,6 +254,7 @@ function mudarCorFundo(element) {
     divSelection.innerHTML = pfx_file;
   } else {
     divSelection.innerHTML = '';
+    document.getElementsByClassName('selection')[0].setAttribute("modo-atual-conversao", "CRT_KEY");
     const key_crt_file = `
     <div class="container" style="display: none;">
     <div id="containerArquivos">
@@ -265,7 +277,7 @@ function mudarCorFundo(element) {
     <input onchange="escolherKey_Crt(event)" type="file" id="file" accept=".crt,.key">
     <input type="file" id="crtFile" style="display:none">
     <input type="file" id="keyFile" style="display:none">
-    <label for="file">
+    <label class="botaoSelecionarFiles" for="file">
       <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione os arquivos
     </label>
     <p id="msgForUser">Selecione um arquivo de cada vez (.crt ou .key)</p>
@@ -278,7 +290,7 @@ function mudarCorFundo(element) {
 function dropHandler(event) {
 
   event.preventDefault();
-
+  console.log("DROP")
   if (event.dataTransfer.items) {
     // Use DataTransferItemList interface to access the file(s)
     const dt = new DataTransfer();
@@ -295,8 +307,13 @@ function dropHandler(event) {
     });
 
     if (dt.files.length != 0) {
-      console.log(dt.files);
-      document.getElementById('file').files = dt.files;
+
+
+
+      document.getElementById('pfxFile').files = dt.files;
+
+
+      console.log("Adicionado arquivo " + file.name)
       const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
 
       document.getElementById("nomeArquivo").innerText = nome;
@@ -307,11 +324,6 @@ function dropHandler(event) {
       document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
     }
 
-  } else {
-    // Use DataTransfer interface to access the file(s)
-    [...event.dataTransfer.files].forEach((file, i) => {
-      console.log(`… file[${i}].name = ${file.name}`);
-    });
   }
 }
 
@@ -319,9 +331,5 @@ function dragOverHandler(ev) {
 
   // Prevent default behavior (Prevent file from being opened)
   ev.preventDefault();
-
-}
-
-function dropHandlerTwoFiles() {
 
 }

@@ -2,7 +2,7 @@
   --cor-base: #330253;
   --cor-download-button: #5C2C72;
   --cor-buttons-navbar: #622F7A;
-  --cor-text-information : #442257;
+  --cor-text-information: #442257;
 }
 
 @font-face {
@@ -87,7 +87,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-.name{
+.name {
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -100,6 +100,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
   p {
     font-family: "Avilock", sans-serif;
     font-size: 24px;
@@ -121,7 +122,7 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   width: 80%;
   height: 80%;
   background-color: #ffffff;
@@ -189,7 +190,8 @@ label img {
   box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.30);
   display: flex;
   background-color: #f8f8ff;
-  width: 420px;
+  width: 360px;
+  max-width: 420px;
   height: 80px;
   border: 3px dashed var(--cor-download-button);
   border-radius: 2px;
@@ -230,13 +232,13 @@ label img {
 .download-button-files {
   margin-top: 20px;
   border: 2px solid var(--cor-download-button);
-  padding: 12px 20px; 
+  padding: 12px 20px;
   border-radius: 12px;
   background-color: var(--cor-download-button);
   color: #ffffff;
   font-size: 24px;
   cursor: pointer;
-  box-shadow: inset 60px 60px 36px -74px rgba(31,1,31,0.80);
+  box-shadow: inset 60px 60px 36px -74px rgba(31, 1, 31, 0.80);
 }
 
 .download-button-files {
@@ -249,8 +251,11 @@ label img {
   color: white;
 }
 
+
 .password-name {
-  width: 620px; /* Adjust width as needed for both inputs */
+  width: 90%;
+  max-width: 620px;
+  /* Adjust width as needed for both inputs */
   background: #ffff;
   margin: 2px auto 0;
   border-radius: 5px;
@@ -296,11 +301,11 @@ label img {
   justify-content: center;
 }
 
-.grid_message{
+.grid_message {
   margin-top: 6px;
 }
 
-#mensagem{
+#mensagem {
   font-size: 23px;
   font-family: "Poppins", sans-serif;
   color: #fff;
@@ -318,8 +323,9 @@ label img {
   width: 30px;
   height: 30px;
   background-color: #ff0000;
-  &:hover{
-  background-color: #920303;
+
+  &:hover {
+    background-color: #920303;
   }
 }
 
@@ -330,11 +336,11 @@ label img {
   margin-top: 15px;
 }
 
-input::placeholder{
+input::placeholder {
   color: #442257;
 }
 
-.selection{
+.selection {
   cursor: pointer;
   position: fixed;
   top: 57%;
@@ -347,14 +353,15 @@ input::placeholder{
   border-style: dashed;
 }
 
-.glow::before, .glow::after{
+.glow::before,
+.glow::after {
   content: '';
-  position:absolute;
-  border-radius:10px;
+  position: absolute;
+  border-radius: 10px;
   left: -1px;
   top: -1px;
-  background: linear-gradient(45deg, #8f27ff , #4B0082, #800080, #9d1ec3,
-  #c403f9, #ff00ff, #6e0dd0, #33006F, #7b1ffd);
+  background: linear-gradient(45deg, #8f27ff, #4B0082, #800080, #9d1ec3,
+      #c403f9, #ff00ff, #6e0dd0, #33006F, #7b1ffd);
   background-size: 400%;
   width: calc(100% + 1px);
   height: calc(100% + 2px);
@@ -364,24 +371,27 @@ input::placeholder{
 
 }
 
-@keyframes animate{
-  0%{
+@keyframes animate {
+  0% {
     background-position: 0 0;
   }
-  50%{
+
+  50% {
     background-position: 400% 0;
   }
-  100%{
+
+  100% {
     background-position: 0 0;
   }
 }
 
-.glow::after{
+.glow::after {
   filter: blur(40px);
 }
 
 .segment {
   padding-left: 40px;
+
   ul {
     display: flex;
     cursor: pointer;
@@ -399,7 +409,7 @@ input::placeholder{
   text-align: center;
   font-family: "Poppins", sans-serif;
   font-size: 8px;
-  text-shadow: 1px -1px #808080; 
+  text-shadow: 1px -1px #808080;
 }
 
 .acceptance_of_terms {
@@ -410,7 +420,8 @@ input::placeholder{
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-  p{
+
+  p {
     font-family: "Avilock", sans-serif;
     color: var(--cor-base);
     margin-top: 24px;
@@ -418,5 +429,6 @@ input::placeholder{
 }
 
 .segment ul li.active {
-  background-color: var(--cor-base); /* Altere para a cor roxa desejada */
+  background-color: var(--cor-base);
+  /* Altere para a cor roxa desejada */
 }

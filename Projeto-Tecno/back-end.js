@@ -82,9 +82,11 @@ function arrayBufferToString(arrayBuffer) {
 }
 
 function converterPfxToCrtAndKey() {
-  const elementInputPfx = document.getElementById('file').files[0];
+  const elementInputPfx = document.getElementById('pfxFile').files[0];
+  
 
   if (elementInputPfx) {
+    
     var reader = new FileReader();
     reader.readAsArrayBuffer(elementInputPfx);
     reader.onload = function (event) {
