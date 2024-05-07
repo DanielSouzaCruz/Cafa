@@ -287,6 +287,24 @@ function mudarCorFundo(element) {
   }
 }
 
+function notification(e){
+  const audio = new Audio('../audio/Error.mp3')
+  audio.play();
+  Toastify({
+    text: e,
+    duration: 5000,
+    className: "info",
+    gravity: 'bottom',
+    style: {
+      background: "#ffffff",
+      color: "#000000",
+      border: "2px solid #622F7A"
+    }
+  }).showToast();
+  
+}
+
+
 function dropHandler(event) {
 
   event.preventDefault();
