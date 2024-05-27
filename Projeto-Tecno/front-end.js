@@ -54,12 +54,14 @@ function escolherKey_Crt(event) {
       document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
       document.querySelector(".main").style.display = "none";
       document.getElementsByClassName("password-name")[0].style.display = "block";
+      document.querySelector(".selection").style.border = '1px dashed #330253'
     } else {
       document.getElementsByClassName("download-button-files")[0].style.display = "none";
       document.querySelector(".main").style.display = "grid";
       document.getElementsByClassName("password-name")[0].style.display = "none";
       document.getElementById("senhaParaPFX").value = "";
       document.getElementById("nomeParaPFX").value = "";
+      document.querySelector(".selection").style.border = 'none'
     }
 
     document.getElementById('file').files = dt.files; // Atualiza o FileList com os arquivos do armazenador temporário
@@ -162,12 +164,14 @@ function fecharArquivoKey_Crt(event) {
     document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
     document.getElementsByClassName("password-name")[0].style.display = "block";
     document.querySelector(".main").style.display = "none";
+    document.querySelector(".selection").style.border = '1px dashed #330253';
   } else {
     document.getElementsByClassName("download-button-files")[0].style.display = "none";
     document.getElementsByClassName("password-name")[0].style.display = "none";
     document.getElementById("senhaParaPFX").value = "";
     document.getElementById("nomeParaPFX").value = "";
     document.querySelector(".main").style.display = "grid";
+    document.querySelector(".selection").style.border = 'none';
   }
 
   input.files = dt.files; // Atualiza o FileList com os arquivos que NÃO serão removidos
@@ -269,7 +273,6 @@ function notification(e) {
 
 function dropHandler(event) {
   event.preventDefault();
-
   if (event.dataTransfer.items) {
     const dt = new DataTransfer();
     let file;
@@ -281,24 +284,38 @@ function dropHandler(event) {
       }
     });
 
-    if (dt.files.length > 0) {
-      const allowedExtensions = ['.pfx', '.p12']; // Array of valid extensions
-      const fileExtension = obterExtensaoArquivo(file.name); // Get extension using function
+    modo = document.querySelector('.selection').getAttribute("data-modo-atual-conversao");
+    if (modo === "PFX") {
+      if (dt.files.length < 2) {
+        const allowedExtensions = ['.pfx', '.p12'];
+        const fileExtension = obterExtensaoArquivo(file.name);
 
-      if (allowedExtensions.includes(fileExtension.toLowerCase())) {
-        document.getElementById('pfxFile').files = dt.files;
+        if (allowedExtensions.includes(fileExtension.toLowerCase())) {
+          document.getElementById('pfxFile').files = dt.files;
 
-        const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
-        document.getElementById("nomeArquivo").innerText = nome;
+          const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
+          document.getElementById("nomeArquivo").innerText = nome;
+          document.getElementById("file").classList.add("hidden");
+          document.querySelector(".container").style.display = "flex";
+          document.getElementById("senhaParaPFX").value = "";
+          document.querySelector(".main").style.display = "none";
 
-        document.getElementById("file").classList.add("hidden");
-        document.querySelector(".container").style.display = "flex";
-        document.getElementById("senhaParaPFX").value = "";
-        document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
+        } else {
+          notification("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
+          document.querySelector('.selection').style.border = 'none';
+        }
       } else {
-        notification("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
-        const divSelection = document.querySelector('.selection');
-        divSelection.style.border = 'none';
+        notification("Não é permitido converter dois arquivos ao mesmo tempo, porfavor tente converter um de cada vez.");
+        document.querySelector('.selection').style.border = 'none';
+      }
+    };
+    if (modo === "CRT_KEY") {
+      if (dt.files.length < 3) {
+        const allowedExtensions = ['.key', '.crt'];
+        
+      } else {
+        notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
+        document.querySelector('.selection').style.border = 'none';
       }
     }
   }
