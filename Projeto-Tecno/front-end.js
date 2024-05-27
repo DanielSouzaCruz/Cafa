@@ -98,13 +98,14 @@ function escolherPfx(event) {
       const dt = new DataTransfer();
       dt.items.add(arquivo);
       document.getElementById('pfxFile').files = dt.files;
-      
+
       const nome = arquivo.name.length > 25 ? arquivo.name.substring(0, 25) + "..." : arquivo.name;
 
       document.getElementById("nomeArquivo").innerText = nome;
 
       document.getElementById("file").classList.add("hidden");
       document.querySelector(".container").style.display = "flex";
+      document.querySelector(".selection").style.border = "1px dashed #330253";
       document.getElementById("senhaParaPFX").value = "";
     }
   }
@@ -114,6 +115,7 @@ function fecharArquivo() {
   document.querySelector(".main").style.display = "grid";
   document.querySelector(".container").style.display = "none";
   document.getElementById("file").value = "";
+  document.querySelector('.selection').style.border = "none";
 }
 
 function fecharArquivoKey_Crt(event) {
@@ -187,7 +189,7 @@ function select_converter(element) {
 
   if (element.classList.contains("active") && element.id === "pfx_file") {
     divSelection.innerHTML = '';
-    document.getElementsByClassName('selection')[0].setAttribute("modo-atual-conversao", "PFX");
+    document.getElementsByClassName('selection')[0].setAttribute("data-modo-atual-conversao", "PFX");
     const pfx_file = `
     <main class="main">
      <input type="file" id="pfxFile" style="display:none">
@@ -216,7 +218,7 @@ function select_converter(element) {
     divSelection.innerHTML = pfx_file;
   } else {
     divSelection.innerHTML = '';
-    document.getElementsByClassName('selection')[0].setAttribute("modo-atual-conversao", "CRT_KEY");
+    document.getElementsByClassName('selection')[0].setAttribute("data-modo-atual-conversao", "CRT_KEY");
     const key_crt_file = `
     <div class="container" style="display: none;">
     <div id="containerArquivos">
@@ -249,7 +251,7 @@ function select_converter(element) {
   }
 }
 
-function notification(e){
+function notification(e) {
   const audio = new Audio('../audio/Error.mp3')
   audio.play();
   Toastify({
@@ -266,35 +268,48 @@ function notification(e){
 }
 
 function dropHandler(event) {
-
   event.preventDefault();
+
   if (event.dataTransfer.items) {
-    // Use DataTransferItemList interface to access the file(s)
     const dt = new DataTransfer();
     let file;
+
     [...event.dataTransfer.items].forEach((item, i) => {
-      // If dropped items aren't files, reject them
       if (item.kind === "file") {
         file = item.getAsFile();
         dt.items.add(file);
-
       }
     });
 
-    if (dt.files.length != 0) {
+    if (dt.files.length > 0) {
+      const allowedExtensions = ['.pfx', '.p12']; // Array of valid extensions
+      const fileExtension = obterExtensaoArquivo(file.name); // Get extension using function
 
-      document.getElementById('pfxFile').files = dt.files;
+      if (allowedExtensions.includes(fileExtension.toLowerCase())) {
+        document.getElementById('pfxFile').files = dt.files;
 
-      const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
+        const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
+        document.getElementById("nomeArquivo").innerText = nome;
 
-      document.getElementById("nomeArquivo").innerText = nome;
-
-      document.getElementById("file").classList.add("hidden");
-      document.querySelector(".container").style.display = "flex";
-      document.getElementById("senhaParaPFX").value = "";
-      document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
+        document.getElementById("file").classList.add("hidden");
+        document.querySelector(".container").style.display = "flex";
+        document.getElementById("senhaParaPFX").value = "";
+        document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
+      } else {
+        notification("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
+        const divSelection = document.querySelector('.selection');
+        divSelection.style.border = 'none';
+      }
     }
+  }
+}
 
+function obterExtensaoArquivo(nomeDoArquivo) {
+  const indiceExtensao = nomeDoArquivo.lastIndexOf('.');
+  if (indiceExtensao !== -1) {
+    return nomeDoArquivo.slice(indiceExtensao);
+  } else {
+    return '';
   }
 }
 
@@ -302,7 +317,7 @@ function dragOverHandler(ev) {
   ev.preventDefault();
   const divSelection = document.querySelector('.selection');
   divSelection.style.border = '1px dashed #330253'
-  ev.target.addEventListener('dragleave', function() {
-   divSelection.style.border = 'none'; 
+  ev.target.addEventListener('dragleave', function () {
+    divSelection.style.border = 'none';
   });
 }

@@ -389,7 +389,7 @@ input::placeholder {
 
 .segment {
   padding-left: 40px;
-
+  display: fixed;
   ul {
     display: flex;
     cursor: pointer;
