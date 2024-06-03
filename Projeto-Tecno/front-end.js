@@ -48,7 +48,6 @@ function escolherKey_Crt(event) {
     }
 
 
-
     if (dataTransferKey.files.length > 1 || dataTransferCrt.files.length > 1) {
       notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
     } else if ((campoCrt.files.length == 1 && dataTransferCrt.files.length == 1) || (campoKey.files.length == 1 && dataTransferKey.files.length == 1)) {
