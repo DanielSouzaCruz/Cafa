@@ -22,9 +22,6 @@ function converterCrtAndKeyToPfx() {
         reader.onload = function (evt) {
 
           conteudoArquivoKey = evt.target.result;
-          // alert("Conteúdo do arquivo " + elementInputCrt.path + ": \n" + conteudoArquivoCrt);
-          // alert("Conteúdo do arquivo " + elementInputKey.path + ": \n" + conteudoArquivoKey);
-
           const senhaPfx = document.getElementById("senhaParaPFX").value;
           let nomePfx = document.getElementById("nomeParaPFX").value;
 
@@ -54,23 +51,6 @@ function converterCrtAndKeyToPfx() {
           } catch (exception) {
             notification("Erro na conversão. Verifique os arquivos enviados e tente novamente");
           }
-
-          // Salvar arquivo PFX
-          // fs.writeFileSync("C:\\", p12Der, { encoding: 'binary' });
-
-          /*const blob = new Blob([p12Der], { type: 'application/x-pkcs12' });
-          // Criar um link de download
-          const linkDownload = document.createElement("a");
-          linkDownload.href = URL.createObjectURL(blob);
-          linkDownload.download = "certificate.pfx";
-
-          // Ocultar o link de download e clicá-lo programaticamente
-          linkDownload.style.display = "none";
-          document.body.appendChild(linkDownload);
-          linkDownload.click();
-
-          // Remover o link de download depois que o download é concluído
-          document.body.removeChild(linkDownload);*/
 
         }
         reader.onerror = function (evt) {
@@ -117,13 +97,6 @@ function converterPfxToCrtAndKey() {
         // Convertendo a chave privada e o certificado para formato PEM
         const privateKeyPem = forge.pki.privateKeyToPem(key.key);
         const certPem = forge.pki.certificateToPem(cert.cert);
-
-        // Exibindo a chave privada e o certificado no console
-        /* console.log("Chave privada (KEY):");
-         console.log(privateKeyPem);
- 
-         console.log("\nCertificado (CRT):");
-         console.log(certPem);*/
 
         // Baixando os arquivos CRT e KEY
         downloadFile(privateKeyPem, `${pfxName}.key`, 'application/octet-stream');
