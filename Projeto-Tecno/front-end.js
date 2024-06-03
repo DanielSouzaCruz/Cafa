@@ -4,9 +4,12 @@ const createWindow = () => {
     width: 1280,
     minWidth: 800,
     minHeight: 720,
+    icon: "favicon/favicon.ico"
   })
 
+
   win.loadFile("front_end_html/index.html")
+
 }
 
 app.whenReady().then(() => {
