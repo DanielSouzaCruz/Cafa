@@ -1,10 +1,15 @@
+window.addEventListener('load', function (){
+  document.getElementById('pfx_file').click()
+});
+
 var forge = require('node-forge');
+
 function converterCrtAndKeyToPfx() {
   const elementInputCrt = document.getElementById('crtFile').files[0];
   const elementInputKey = document.getElementById('keyFile').files[0];
 
   var conteudoArquivoCrt, conteudoArquivoKey;
-
+  
   if (elementInputCrt) {
     var reader = new FileReader();
     reader.readAsText(elementInputCrt, "UTF-8");
