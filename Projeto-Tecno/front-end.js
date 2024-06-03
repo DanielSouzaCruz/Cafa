@@ -278,7 +278,7 @@ function select_converter(element) {
     </div>
     <div class="password-name">
       <div class="row">
-        <input type="text" id="senhaParaPFX" placeholder="Senha para Verificar Certificado" autocomplete="off"
+        <input type="password" id="senhaParaPFX" placeholder="Senha para Verificar Certificado" autocomplete="off"
           style="width: 300px">
       </div>
     </div>
@@ -301,7 +301,7 @@ function select_converter(element) {
     <div class="password-name">
       <div class="row">
         <input type="text" id="nomeParaPFX" placeholder="Nome para Certificado"  autocomplete="off">
-        <input type="text" id="senhaParaPFX" placeholder="Senha para Converter"  autocomplete="off">
+        <input type="password" id="senhaParaPFX" placeholder="Senha para Converter"  autocomplete="off">
       </div>
     </div>
     <button class="download-button-files" onclick="converterCrtAndKeyToPfx()">Download</button>
@@ -352,14 +352,16 @@ function dropHandler(event) {
       if (item.kind === "file") {
         file = item.getAsFile();
         const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
-        console.log(fileExtension)
+        
         if (modo == "PFX" && (fileExtension == ".pfx" || fileExtension == ".p12")) {
           dtPfx.items.add(file);
         } else if (fileExtension == ".crt" && modo == "CRT_KEY"  ) {
           dtCrt.items.add(file);
         } else if (fileExtension == ".key" && modo == "CRT_KEY") {
           dtKey.items.add(file);
-        } else {
+        } else if(modo == ""){
+
+        }else {
           if (modo === "PFX") {
             notification("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
             document.querySelector('.selection').style.border = 'none';
