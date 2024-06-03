@@ -348,6 +348,7 @@ function dropHandler(event) {
     modo = document.querySelector('.selection').getAttribute("data-modo-atual-conversao");
 
     [...event.dataTransfer.items].forEach((item, i) => {
+      console.log(item.kind);
       if (item.kind === "file") {
         file = item.getAsFile();
         const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
