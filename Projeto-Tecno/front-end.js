@@ -348,7 +348,7 @@ function dropHandler(event) {
     modo = document.querySelector('.selection').getAttribute("data-modo-atual-conversao");
 
     [...event.dataTransfer.items].forEach((item, i) => {
-      console.log(item.kind);
+      
       if (item.kind === "file") {
         file = item.getAsFile();
         const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
@@ -414,8 +414,7 @@ function dropHandler(event) {
 
         let nameKey = dtKey.files.item(0) ? dtKey.files.item(0).name : null;
         let nameCrt = dtCrt.files.item(0) ? dtCrt.files.item(0).name : null;
-        alert(nameKey + " | " + nameCrt + " || " + dtKey.files.length + " | " + dtCrt.files.length );
-
+        
         if (nameKey != nameCrt) {
           document.querySelector(".container").style.display = "flex";
 
