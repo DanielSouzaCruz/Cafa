@@ -69,13 +69,7 @@ function escolherKey_Crt(event) {
           document.querySelector(".main").style.height = "20vh";
           document.getElementById("file").accept = ".crt";
           let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
-          document.getElementById("containerArquivos").innerHTML += `
-          <div class="grid_inputs">
-            <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
-            <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameKey}">${nomeAExibir}</p>
-            <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
-          </div>
-          `;
+          document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameKey, nomeAExibir);
         }
 
         if (dtCrt.files.length == 1) {
@@ -84,13 +78,7 @@ function escolherKey_Crt(event) {
           document.getElementById("file").accept = ".key";
           document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .KEY";
           let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
-          document.getElementById("containerArquivos").innerHTML += `
-          <div class="grid_inputs">
-            <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
-            <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameCrt}">${nomeAExibir}</p>
-            <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
-          </div>
-          `;
+          document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameCrt, nomeAExibir);
         }
 
         if (inputCrt.files.length == 1 && inputKey.files.length == 1) {
@@ -207,63 +195,12 @@ function select_converter(element) {
   if (element.classList.contains("active") && element.id === "pfx_file") {
     divSelection.innerHTML = '';
     document.getElementsByClassName('selection')[0].setAttribute("data-modo-atual-conversao", "PFX");
-    const pfx_file = `
-    <main class="main">
-     <input type="file" id="pfxFile" style="display:none">
-      <input onchange="escolherPfx(event)" type="file" id="file" accept=".pfx,.p12">
-      <label class="botaoSelecionarFiles" for="file" id="file"">
-        <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione o arquivo
-      </label>
-      <p id="msgForUser">Selecione ou Arraste um arquivo (.pfx)</p>
-    </main>
-
-    <div class="container" style="display: none;">
-    <div class="grid">
-      <img src="../images/file-image.png" alt="arquivo" class="arquive" style="width: 40px;">
-      <p class="file-name" id="nomeArquivo"></p>
-      <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivo()">
-    </div>
-    <div class="password-name">
-      <div class="row">
-        <input type="password" id="senhaParaPFX" placeholder="Senha para Verificar Certificado" autocomplete="off"
-          style="width: 300px">
-      </div>
-    </div>
-    <button class="download-button" onclick="converterPfxToCrtAndKey()">Download</button>
-  </div>
-  `;
+    const pfx_file = tela_pfx();
     divSelection.innerHTML = pfx_file;
   } else {
     divSelection.innerHTML = '';
     document.getElementsByClassName('selection')[0].setAttribute("data-modo-atual-conversao", "CRT_KEY");
-    const key_crt_file = `
-    <div class="container" style="display: none;">
-    <div id="containerArquivos">
-      <div class="grid_inputs">
-        <img src="../images/file-image.png" alt="arquivo" class="arquive">
-        <p class="file-name" id="nomeArquivo"></p>
-        <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt()">
-      </div>
-    </div>
-    <div class="password-name">
-      <div class="row">
-        <input type="text" id="nomeParaPFX" placeholder="Nome para Certificado"  autocomplete="off">
-        <input type="password" id="senhaParaPFX" placeholder="Senha para Converter"  autocomplete="off">
-      </div>
-    </div>
-    <button class="download-button-files" onclick="converterCrtAndKeyToPfx()">Download</button>
-  </div>
-
-  <main class="main">
-    <input onchange="escolherKey_Crt(event)" type="file" id="file" accept=".crt,.key" multiple>
-    <input type="file" id="crtFile" style="display:none">
-    <input type="file" id="keyFile" style="display:none">
-    <label class="botaoSelecionarFiles" for="file">
-      <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione os arquivos
-    </label>
-    <p id="msgForUser">Selecione ou Arraste os arquivos (.crt ou .key)</p>
-  </main>
-    `
+    const key_crt_file = tela_crtkey();
     divSelection.innerHTML = key_crt_file;
   }
 }
@@ -380,13 +317,7 @@ function dropHandler(event) {
             document.querySelector(".main").style.height = "20vh";
             document.getElementById("file").accept = ".crt";
             let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
-            document.getElementById("containerArquivos").innerHTML += `
-            <div class="grid_inputs">
-              <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
-              <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameKey}">${nomeAExibir}</p>
-              <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
-            </div>
-            `;
+            document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameKey, nomeAExibir);
           }
 
           if (dtCrt.files.length == 1) {
@@ -395,13 +326,7 @@ function dropHandler(event) {
             document.getElementById("file").accept = ".key";
             document.getElementById("msgForUser").innerText = "Agora selecione ou Arrate um arquivo .KEY";
             let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
-            document.getElementById("containerArquivos").innerHTML += `
-            <div class="grid_inputs">
-              <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
-              <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameCrt}">${nomeAExibir}</p>
-              <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
-            </div>
-            `;
+            document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameCrt, nomeAExibir);
           }
 
           if (inputCrt.files.length == 1 && inputKey.files.length == 1) {
