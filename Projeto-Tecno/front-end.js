@@ -16,27 +16,25 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-var dialogInputSelectionFileEstaAberto;
 
 function escolherKey_Crt(event) {
-  dialogInputSelectionFileEstaAberto = false;
   if (event.target.files && event.target.files[0]) {
 
-    let inputCrt = document.getElementById('crtFile');
-    let inputKey = document.getElementById('keyFile');
+    let campoCrt = document.getElementById('crtFile');
+    let campoKey = document.getElementById('keyFile');
 
-    const dtCrt = new DataTransfer();
-    const dtKey = new DataTransfer();
+    const dataTransferCrt = new DataTransfer();
+    const dataTransferKey = new DataTransfer();
 
     let devoProsseguir = true;
 
-    [...event.target.files].forEach((file) => {
-      const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
+    [...event.target.files].forEach((arquivo) => {
+      const extensaoArquivo = obterExtensaoArquivo(arquivo.name).toLowerCase();
 
-      if (fileExtension == ".crt") {
-        dtCrt.items.add(file);
-      } else if (fileExtension == ".key") {
-        dtKey.items.add(file);
+      if (extensaoArquivo == ".crt") {
+        dataTransferCrt.items.add(arquivo);
+      } else if (extensaoArquivo == ".key") {
+        dataTransferKey.items.add(arquivo);
       } else {
         notification("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
         document.getElementById("file").value = "";
@@ -51,23 +49,23 @@ function escolherKey_Crt(event) {
 
 
 
-    if (dtKey.files.length > 1 || dtCrt.files.length > 1) {
+    if (dataTransferKey.files.length > 1 || dataTransferCrt.files.length > 1) {
       notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
-    } else if ((inputCrt.files.length == 1 && dtCrt.files.length == 1) || (inputKey.files.length == 1 && dtKey.files.length == 1)) {
+    } else if ((campoCrt.files.length == 1 && dataTransferCrt.files.length == 1) || (campoKey.files.length == 1 && dataTransferKey.files.length == 1)) {
       notification("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
     } else {
-      let nameKey = dtKey.files.item(0) ? dtKey.files.item(0).name : null;
-      let nameCrt = dtCrt.files.item(0) ? dtCrt.files.item(0).name : null;
+      let nameKey = dataTransferKey.files.item(0) ? dataTransferKey.files.item(0).name : null;
+      let nameCrt = dataTransferCrt.files.item(0) ? dataTransferCrt.files.item(0).name : null;
       if (nameKey != nameCrt) {
 
-        if (inputCrt.files.length == 0 && inputKey.files.length == 0) {
+        if (campoCrt.files.length == 0 && campoKey.files.length == 0) {
           document.getElementById("containerArquivos").innerHTML = "";
         }
 
         document.querySelector(".container").style.display = "flex"; // mostra o visualizador de arquivos selecionados
 
-        if (dtKey.files.length == 1) {
-          document.getElementById("keyFile").files = dtKey.files;
+        if (dataTransferKey.files.length == 1) {
+          document.getElementById("keyFile").files = dataTransferKey.files;
           document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";
           document.querySelector(".main").style.height = "20vh";
           document.getElementById("file").accept = ".crt";
@@ -75,8 +73,8 @@ function escolherKey_Crt(event) {
           document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameKey, nomeAExibir);
         }
 
-        if (dtCrt.files.length == 1) {
-          document.getElementById("crtFile").files = dtCrt.files;
+        if (dataTransferCrt.files.length == 1) {
+          document.getElementById("crtFile").files = dataTransferCrt.files;
           document.querySelector(".main").style.height = "20vh";
           document.getElementById("file").accept = ".key";
           document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .KEY";
@@ -84,7 +82,7 @@ function escolherKey_Crt(event) {
           document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameCrt, nomeAExibir);
         }
 
-        if (inputCrt.files.length == 1 && inputKey.files.length == 1) {
+        if (campoCrt.files.length == 1 && campoKey.files.length == 1) {
           document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
           document.querySelector(".main").style.display = "none";
           document.getElementsByClassName("password-name")[0].style.display = "block";
@@ -145,20 +143,20 @@ function fecharArquivoKey_Crt(event) {
 
   const nomeCompletoArquivo = event.target.parentElement.querySelector('#nomeArquivo').dataset.nomecompletoarquivo;
 
-  let inputCrt = document.getElementById('crtFile');
-  let inputKey = document.getElementById('keyFile');
+  let campoCrt = document.getElementById('crtFile');
+  let campoKey = document.getElementById('keyFile');
 
-  if (inputCrt.files.length != 0 && nomeCompletoArquivo == inputCrt.files[0].name) {
-    inputCrt.value = ""; // remove o arquivo do input oculto para arquivos crt
+  if (campoCrt.files.length != 0 && nomeCompletoArquivo == campoCrt.files[0].name) {
+    campoCrt.value = ""; // remove o arquivo do input oculto para arquivos crt
     document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";  // atualiza a mensagem para comunicar o usuário o que ele deve fazer
     document.getElementById("file").accept = ".crt"; // define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt
-  } else if (inputKey.files.length != 0 && nomeCompletoArquivo == inputKey.files[0].name) {
-    inputKey.value = "";
+  } else if (campoKey.files.length != 0 && nomeCompletoArquivo == campoKey.files[0].name) {
+    campoKey.value = "";
     document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .KEY";
     document.getElementById("file").accept = ".key";
   }
 
-  if (inputKey.files.length == 0 && inputCrt.files.length == 0) { // Caso os dois inputs ocultos (crt e key) estejam vazios, atualiza a mensagem para comunicar o usuário o que ele deve fazer e define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt ou key
+  if (campoKey.files.length == 0 && campoCrt.files.length == 0) { // Caso os dois inputs ocultos (crt e key) estejam vazios, atualiza a mensagem para comunicar o usuário o que ele deve fazer e define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt ou key
     document.getElementById("msgForUser").innerText = "Selecione ou Arraste os arquivos (.CRT e .KEY)";
     document.getElementById("file").accept = ".crt,.key";
     document.querySelector(".main").style.height = "46vh";
@@ -228,8 +226,8 @@ function dropHandler(event) {
   event.preventDefault();
   if (event.dataTransfer.items) {
     const dtPfx = new DataTransfer();
-    const dtCrt = new DataTransfer();
-    const dtKey = new DataTransfer();
+    const dataTransferCrt = new DataTransfer();
+    const dataTransferKey = new DataTransfer();
     let file;
 
     modo = document.querySelector('.selection').getAttribute("data-modo-atual-conversao");
@@ -238,14 +236,14 @@ function dropHandler(event) {
 
       if (item.kind === "file") {
         file = item.getAsFile();
-        const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
+        const extensaoArquivo = obterExtensaoArquivo(file.name).toLowerCase();
         
-        if (modo == "PFX" && (fileExtension == ".pfx" || fileExtension == ".p12")) {
+        if (modo == "PFX" && (extensaoArquivo == ".pfx" || extensaoArquivo == ".p12")) {
           dtPfx.items.add(file);
-        } else if (fileExtension == ".crt" && modo == "CRT_KEY"  ) {
-          dtCrt.items.add(file);
-        } else if (fileExtension == ".key" && modo == "CRT_KEY") {
-          dtKey.items.add(file);
+        } else if (extensaoArquivo == ".crt" && modo == "CRT_KEY"  ) {
+          dataTransferCrt.items.add(file);
+        } else if (extensaoArquivo == ".key" && modo == "CRT_KEY") {
+          dataTransferKey.items.add(file);
         } else if(modo == ""){
 
         }else {
@@ -289,33 +287,33 @@ function dropHandler(event) {
       }
     };
 
-    let inputCrt = document.getElementById('crtFile');
-    let inputKey = document.getElementById('keyFile');
+    let campoCrt = document.getElementById('crtFile');
+    let campoKey = document.getElementById('keyFile');
 
     if (modo === "CRT_KEY") {
-      if (dtKey.files.length > 1 || dtCrt.files.length > 1) {
+      if (dataTransferKey.files.length > 1 || dataTransferCrt.files.length > 1) {
         notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
         document.querySelector('.selection').style.border = 'none';
 
-      } else if ((inputCrt.files.length == 1 && dtCrt.files.length == 1) || (inputKey.files.length == 1 && dtKey.files.length == 1)) {
+      } else if ((campoCrt.files.length == 1 && dataTransferCrt.files.length == 1) || (campoKey.files.length == 1 && dataTransferKey.files.length == 1)) {
         notification("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
         document.querySelector('.selection').style.border = 'none';
       }
       else {
 
-        if (inputCrt.files.length == 0 && inputKey.files.length == 0) {
+        if (campoCrt.files.length == 0 && campoKey.files.length == 0) {
           document.getElementById("containerArquivos").innerHTML = "";
         }
 
 
-        let nameKey = dtKey.files.item(0) ? dtKey.files.item(0).name : null;
-        let nameCrt = dtCrt.files.item(0) ? dtCrt.files.item(0).name : null;
+        let nameKey = dataTransferKey.files.item(0) ? dataTransferKey.files.item(0).name : null;
+        let nameCrt = dataTransferCrt.files.item(0) ? dataTransferCrt.files.item(0).name : null;
 
         if (nameKey != nameCrt) {
           document.querySelector(".container").style.display = "flex";
 
-          if (dtKey.files.length == 1) {
-            document.getElementById("keyFile").files = dtKey.files;
+          if (dataTransferKey.files.length == 1) {
+            document.getElementById("keyFile").files = dataTransferKey.files;
             document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";
             document.querySelector(".main").style.height = "20vh";
             document.getElementById("file").accept = ".crt";
@@ -323,8 +321,8 @@ function dropHandler(event) {
             document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameKey, nomeAExibir);
           }
 
-          if (dtCrt.files.length == 1) {
-            document.getElementById("crtFile").files = dtCrt.files;
+          if (dataTransferCrt.files.length == 1) {
+            document.getElementById("crtFile").files = dataTransferCrt.files;
             document.querySelector(".main").style.height = "20vh";
             document.getElementById("file").accept = ".key";
             document.getElementById("msgForUser").innerText = "Agora selecione ou Arrate um arquivo .KEY";
@@ -332,7 +330,7 @@ function dropHandler(event) {
             document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameCrt, nomeAExibir);
           }
 
-          if (inputCrt.files.length == 1 && inputKey.files.length == 1) {
+          if (campoCrt.files.length == 1 && campoKey.files.length == 1) {
             document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
             document.querySelector(".main").style.display = "none";
             document.getElementsByClassName("password-name")[0].style.display = "block";
