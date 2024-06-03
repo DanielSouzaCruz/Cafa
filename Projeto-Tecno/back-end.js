@@ -125,7 +125,7 @@ function converterPfxToCrtAndKey() {
         downloadFile(certPem, `${pfxName}.crt`, 'application/octet-stream');
 
       } catch (error) {
-        notification("Senha inválida! Tente novamente com uma senha válida.")
+        notification("Senha ou arquivo inválido! Tente novamente com uma senha válida e selecionando um arquivo válido.")
       }
 
     }
