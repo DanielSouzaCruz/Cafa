@@ -65,7 +65,7 @@ function escolherKey_Crt(event) {
 
         if (dtKey.files.length == 1) {
           document.getElementById("keyFile").files = dtKey.files;
-          document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
+          document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";
           document.querySelector(".main").style.height = "20vh";
           document.getElementById("file").accept = ".crt";
           let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
@@ -82,7 +82,7 @@ function escolherKey_Crt(event) {
           document.getElementById("crtFile").files = dtCrt.files;
           document.querySelector(".main").style.height = "20vh";
           document.getElementById("file").accept = ".key";
-          document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
+          document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .KEY";
           let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
           document.getElementById("containerArquivos").innerHTML += `
           <div class="grid_inputs">
@@ -213,16 +213,16 @@ function fecharArquivoKey_Crt(event) {
 
   if (inputCrt.files.length != 0 && nomeCompletoArquivo == inputCrt.files[0].name) {
     inputCrt.value = ""; // remove o arquivo do input oculto para arquivos crt
-    document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";  // atualiza a mensagem para comunicar o usuário o que ele deve fazer
+    document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";  // atualiza a mensagem para comunicar o usuário o que ele deve fazer
     document.getElementById("file").accept = ".crt"; // define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt
   } else if (inputKey.files.length != 0 && nomeCompletoArquivo == inputKey.files[0].name) {
     inputKey.value = "";
-    document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
+    document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .KEY";
     document.getElementById("file").accept = ".key";
   }
 
   if (inputKey.files.length == 0 && inputCrt.files.length == 0) { // Caso os dois inputs ocultos (crt e key) estejam vazios, atualiza a mensagem para comunicar o usuário o que ele deve fazer e define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt ou key
-    document.getElementById("msgForUser").innerText = "Selecione um arquivo de cada vez (.crt ou .key)";
+    document.getElementById("msgForUser").innerText = "Selecione ou Arraste os arquivos (.CRT e .KEY)";
     document.getElementById("file").accept = ".crt,.key";
     document.querySelector(".main").style.height = "46vh";
   }
@@ -267,7 +267,7 @@ function select_converter(element) {
       <label class="botaoSelecionarFiles" for="file" id="file"">
         <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione o arquivo
       </label>
-      <p id="msgForUser">Selecione um arquivo (.pfx)</p>
+      <p id="msgForUser">Selecione ou Arraste um arquivo (.pfx)</p>
     </main>
 
     <div class="container" style="display: none;">
@@ -314,7 +314,7 @@ function select_converter(element) {
     <label class="botaoSelecionarFiles" for="file">
       <img src="../images/upload.png" alt="upload de arquivo" style="width: 30px;">Selecione os arquivos
     </label>
-    <p id="msgForUser">Selecione um arquivo de cada vez (.crt ou .key)</p>
+    <p id="msgForUser">Selecione ou Arraste os arquivos (.crt ou .key)</p>
   </main>
     `
     divSelection.innerHTML = key_crt_file;
@@ -420,7 +420,7 @@ function dropHandler(event) {
 
           if (dtKey.files.length == 1) {
             document.getElementById("keyFile").files = dtKey.files;
-            document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
+            document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";
             document.querySelector(".main").style.height = "20vh";
             document.getElementById("file").accept = ".crt";
             let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
@@ -437,7 +437,7 @@ function dropHandler(event) {
             document.getElementById("crtFile").files = dtCrt.files;
             document.querySelector(".main").style.height = "20vh";
             document.getElementById("file").accept = ".key";
-            document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
+            document.getElementById("msgForUser").innerText = "Agora selecione ou Arrate um arquivo .KEY";
             let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
             document.getElementById("containerArquivos").innerHTML += `
             <div class="grid_inputs">
