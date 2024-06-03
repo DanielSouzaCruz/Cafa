@@ -18,36 +18,119 @@ var dialogInputSelectionFileEstaAberto;
 function escolherKey_Crt(event) {
   dialogInputSelectionFileEstaAberto = false;
   if (event.target.files && event.target.files[0]) {
-    document.getElementById("containerArquivos").innerHTML = ""; // remove qualquer elemento filho do div que mostra os arquivos selecionados
-    //document.querySelector(".main").style.display = "none"; // esconde o selecionador de arquivos
-    document.querySelector(".container").style.display = "flex"; // mostra o visualizador de arquivos selecionados
 
+    let inputCrt = document.getElementById('crtFile');
+    let inputKey = document.getElementById('keyFile');
 
-    if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) { // caso os dois arquivos crt e key estejam já selecionados, alerta ao usuário que não pode mais selecionar nenhum arquivo a mais
+    const dtCrt = new DataTransfer();
+    const dtKey = new DataTransfer();
+
+    let devoProsseguir = true;
+
+    [...event.target.files].forEach((file) => {
+      const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
+      console.log(fileExtension);
+      if (fileExtension == ".crt") {
+        dtCrt.items.add(file);
+      } else if (fileExtension == ".key") {
+        dtKey.items.add(file);
+      } else {
+        notification("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
+        document.getElementById("file").value = "";
+        devoProsseguir = false;
+        return;
+      }
+    });
+
+    if (devoProsseguir == false) {
+      return;
+    }
+
+    
+
+    if (dtKey.files.length > 1 || dtCrt.files.length > 1) {
+      notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
+    } else if ((inputCrt.files.length == 1 && dtCrt.files.length == 1) || (inputKey.files.length == 1 && dtKey.files.length == 1)) {
+      notification("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
+    } else {
+      let nameKey = dtKey.files.item(0) ? dtKey.files.item(0).name : null;
+      let nameCrt = dtCrt.files.item(0) ? dtCrt.files.item(0).name : null;
+      if (nameKey != nameCrt) {
+
+        if (inputCrt.files.length == 0 && inputKey.files.length == 0) {
+          document.getElementById("containerArquivos").innerHTML = "";
+        }
+
+        document.querySelector(".container").style.display = "flex"; // mostra o visualizador de arquivos selecionados
+
+        if (dtKey.files.length == 1) {
+          document.getElementById("keyFile").files = dtKey.files;
+          document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
+          document.querySelector(".main").style.height = "20vh";
+          document.getElementById("file").accept = ".crt";
+          let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
+          document.getElementById("containerArquivos").innerHTML += `
+          <div class="grid_inputs">
+            <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
+            <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameKey}">${nomeAExibir}</p>
+            <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
+          </div>
+          `;
+        }
+
+        if (dtCrt.files.length == 1) {
+          document.getElementById("crtFile").files = dtCrt.files;
+          document.querySelector(".main").style.height = "20vh";
+          document.getElementById("file").accept = ".key";
+          document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
+          let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
+          document.getElementById("containerArquivos").innerHTML += `
+          <div class="grid_inputs">
+            <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
+            <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameCrt}">${nomeAExibir}</p>
+            <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
+          </div>
+          `;
+        }
+
+        if (inputCrt.files.length == 1 && inputKey.files.length == 1) {
+          document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
+          document.querySelector(".main").style.display = "none";
+          document.getElementsByClassName("password-name")[0].style.display = "block";
+          document.querySelector(".selection").style.border = '1px dashed #330253';
+        } else {
+          document.getElementsByClassName("download-button-files")[0].style.display = "none";
+          document.querySelector(".main").style.display = "grid";
+          document.getElementsByClassName("password-name")[0].style.display = "none";
+          document.getElementById("senhaParaPFX").value = "";
+          document.getElementById("nomeParaPFX").value = "";
+          document.querySelector(".selection").style.border = 'none'
+        }
+
+      }else{
+        notification("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
+      }
+    }
+/*
+    if (inputCrt.files.length == 1 && inputKey.files.length == 1) { // caso os dois arquivos crt e key estejam já selecionados, alerta ao usuário que não pode mais selecionar nenhum arquivo a mais
       alert("Não é permitido selecionar mais que dois arquivos");
       event.preventDefault();
     } else {
 
-      if (event.target.files[0].name.split('.').pop() == "crt") { // obtém a extensão do arquivo selecionado pelo usuário
+      if (event.target.files[0].name.split('.').pop() == "crt" || event.target.files[1].name.split('.').pop() == "crt") { // obtém a extensão do arquivo selecionado pelo usuário
         document.getElementById("crtFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files crt
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
         document.querySelector(".main").style.height = "20vh";
         document.getElementById("file").accept = ".key"; // define o filtro de seleção de arquivos key
-      } else {
+      }
+
+      if (event.target.files[0].name.split('.').pop() == "key" || event.target.files[1].name.split('.').pop() == "key") {
         document.getElementById("keyFile").files = event.target.files; // passa o arquivo selecionado para o input oculto de files key
         document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
         document.querySelector(".main").style.height = "20vh";
         document.getElementById("file").accept = ".crt"; // define o filtro de seleção de arquivos crt
       }
     }
-
-    const dt = new DataTransfer(); // armazenador temporário para passar os arquivos dos inputs ocultos para o input de seleção de arquivos pelo usuário
-
-    if (document.getElementById('crtFile').files.length != 0)
-      dt.items.add(document.getElementById('crtFile').files[0]); // passa os arquivos do input oculto de arquivos crt para o armazenador temporário
-
-    if (document.getElementById('keyFile').files.length != 0)
-      dt.items.add(document.getElementById('keyFile').files[0]); // passa os arquivos do input oculto de arquivos key para o armazenador temporário
 
     // condicionais para controlar se o botão downlaod deve ou não aparecer E também se a seção seleção de arquivos deve ou não aparecer
     if (document.getElementById("crtFile").files.length == 1 && document.getElementById("keyFile").files.length == 1) { // 
@@ -64,15 +147,13 @@ function escolherKey_Crt(event) {
       document.querySelector(".selection").style.border = 'none'
     }
 
-    document.getElementById('file').files = dt.files; // Atualiza o FileList com os arquivos do armazenador temporário
-
     // itera sobre todos os arquivos do input que contém os arquivos selecionados
     for (let index = 0; index < event.target.files.length; index++) {
       let arquivo = {};
 
       arquivo.name = event.target.files[index].name;
 
-      let nomeAExibir = arquivo.name.length > 25 ? arquivo.name.substring(0, 25) + "..." : arquivo.name;
+      let nomeAExibir = arquivo.name.length > 20 ? arquivo.name.substring(0, 20) + "..." : arquivo.name;
 
 
       document.getElementById("containerArquivos").innerHTML += `
@@ -82,8 +163,9 @@ function escolherKey_Crt(event) {
     <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
   </div>
   `;
-    }
+    }*/
   }
+  document.getElementById("file").value = "";
 }
 
 function escolherPfx(event) {
@@ -101,7 +183,7 @@ function escolherPfx(event) {
       dt.items.add(arquivo);
       document.getElementById('pfxFile').files = dt.files;
 
-      const nome = arquivo.name.length > 25 ? arquivo.name.substring(0, 25) + "..." : arquivo.name;
+      const nome = arquivo.name.length > 20 ? arquivo.name.substring(0, 20) + "..." : arquivo.name;
 
       document.getElementById("nomeArquivo").innerText = nome;
 
@@ -126,37 +208,23 @@ function fecharArquivoKey_Crt(event) {
 
   const nomeCompletoArquivo = event.target.parentElement.querySelector('#nomeArquivo').dataset.nomecompletoarquivo;
 
-  // Criar um 'armazenador' temporário para armazenar os Arquivos que DEVEM continuar no FileList
-  const dt = new DataTransfer();
+  let inputCrt = document.getElementById('crtFile');
+  let inputKey = document.getElementById('keyFile');
 
-  const input = document.getElementById('file');
-  const { files } = input; // o FileList
+  if (inputCrt.files.length != 0 && nomeCompletoArquivo == inputCrt.files[0].name) {
+    inputCrt.value = ""; // remove o arquivo do input oculto para arquivos crt
+    document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";  // atualiza a mensagem para comunicar o usuário o que ele deve fazer
+    document.getElementById("file").accept = ".crt"; // define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt
+  } else if (inputKey.files.length != 0 && nomeCompletoArquivo == inputKey.files[0].name) {
+    inputKey.value = "";
+    document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
+    document.getElementById("file").accept = ".key";
+  }
 
-  // iterar sobre todos os arquivos do FileList para adicionar ao 'armazenador' temporário os arquivos que não devem ser removidos do FileList
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-
-    if (nomeCompletoArquivo !== files[i].name) { // adiciona á lista temporária dos arquivos que NÃO serão removidos da seleção
-      dt.items.add(file)
-    } else { // caso seja necessário remover o arquivo da seleção, executa os procedimentos de formatação da interface gráfica
-
-      if (document.getElementById('crtFile').files.length != 0 && nomeCompletoArquivo == document.getElementById('crtFile').files[0].name) { // caso o input oculto de arquivo CRT esteja com algum arquivo e o nome deste arquivo seja o mesmo que o nome completo do arquivo á ser removido, ...
-        document.getElementById('crtFile').value = ""; // remove o arquivo do input oculto para arquivos crt
-        document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";  // atualiza a mensagem para comunicar o usuário o que ele deve fazer
-        document.getElementById("file").accept = ".crt"; // define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt
-      } else if (document.getElementById('keyFile').files.length != 0 && nomeCompletoArquivo == document.getElementById('keyFile').files[0].name) {
-        document.getElementById('keyFile').value = "";
-        document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
-        document.getElementById("file").accept = ".key";
-      }
-
-      if (document.getElementById('keyFile').files.length == 0 && document.getElementById('crtFile').files.length == 0) { // Caso os dois inputs ocultos (crt e key) estejam vazios, atualiza a mensagem para comunicar o usuário o que ele deve fazer e define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt ou key
-        document.getElementById("msgForUser").innerText = "Selecione um arquivo de cada vez (.crt ou .key)";
-        document.getElementById("file").accept = ".crt,.key";
-        document.querySelector(".main").style.height = "46vh";
-      }
-    }
-
+  if (inputKey.files.length == 0 && inputCrt.files.length == 0) { // Caso os dois inputs ocultos (crt e key) estejam vazios, atualiza a mensagem para comunicar o usuário o que ele deve fazer e define o filtro de arquivos do input para que o usuário possa selecionar arquivos com a extensão crt ou key
+    document.getElementById("msgForUser").innerText = "Selecione um arquivo de cada vez (.crt ou .key)";
+    document.getElementById("file").accept = ".crt,.key";
+    document.querySelector(".main").style.height = "46vh";
   }
 
   // condicionais para controlar se o botão downlaod deve ou não aparecer E também se a seção seleção de arquivos deve ou não aparecer
@@ -173,8 +241,6 @@ function fecharArquivoKey_Crt(event) {
     document.querySelector(".main").style.display = "grid";
     document.querySelector(".selection").style.border = 'none';
   }
-
-  input.files = dt.files; // Atualiza o FileList com os arquivos que NÃO serão removidos
 
   event.target.parentElement.remove(); // remove da interface gráfica o div que mostra o arquivo e o botão de remover
 
@@ -242,7 +308,7 @@ function select_converter(element) {
   </div>
 
   <main class="main">
-    <input onchange="escolherKey_Crt(event)" type="file" id="file" accept=".crt,.key">
+    <input onchange="escolherKey_Crt(event)" type="file" id="file" accept=".crt,.key" multiple>
     <input type="file" id="crtFile" style="display:none">
     <input type="file" id="keyFile" style="display:none">
     <label class="botaoSelecionarFiles" for="file">
@@ -274,69 +340,132 @@ function notification(e) {
 function dropHandler(event) {
   event.preventDefault();
   if (event.dataTransfer.items) {
-    const dt = new DataTransfer();
+    const dtPfx = new DataTransfer();
+    const dtCrt = new DataTransfer();
+    const dtKey = new DataTransfer();
     let file;
+
+    modo = document.querySelector('.selection').getAttribute("data-modo-atual-conversao");
 
     [...event.dataTransfer.items].forEach((item, i) => {
       if (item.kind === "file") {
         file = item.getAsFile();
-        dt.items.add(file);
+        const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
+        if (fileExtension == ".pfx" || fileExtension == ".p12") {
+          dtPfx.items.add(file);
+        } else if (fileExtension == ".crt") {
+          dtCrt.items.add(file);
+        } else if (fileExtension == ".key") {
+          dtKey.items.add(file);
+        } else {
+          if (modo === "PFX") {
+            notification("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
+            document.querySelector('.selection').style.border = 'none';
+            return;
+          } else {
+            notification("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
+            document.querySelector('.selection').style.border = 'none';
+            return;
+          }
+        }
+
       }
     });
 
-    modo = document.querySelector('.selection').getAttribute("data-modo-atual-conversao");
+
     if (modo === "PFX") {
-      if (dt.files.length < 2) {
-        const allowedExtensions = ['.pfx', '.p12'];
-        const fileExtension = obterExtensaoArquivo(file.name);
+      if (dtPfx.files.length < 2) {
 
-        if (allowedExtensions.includes(fileExtension.toLowerCase())) {
-          document.getElementById('pfxFile').files = dt.files;
+        document.getElementById('pfxFile').files = dtPfx.files;
 
-          const nome = file.name.length > 25 ? file.name.substring(0, 25) + "..." : file.name;
-          document.getElementById("nomeArquivo").innerText = nome;
-          document.getElementById("file").classList.add("hidden");
-          document.querySelector(".container").style.display = "flex";
-          document.getElementById("senhaParaPFX").value = "";
-          document.querySelector(".main").style.display = "none";
+        const nome = file.name.length > 20 ? file.name.substring(0, 20) + "..." : file.name;
+        document.getElementById("nomeArquivo").innerText = nome;
+        document.getElementById("file").classList.add("hidden");
+        document.querySelector(".container").style.display = "flex";
+        document.getElementById("senhaParaPFX").value = "";
+        document.querySelector(".main").style.display = "none";
 
-        } else {
-          notification("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
-          document.querySelector('.selection').style.border = 'none';
-        }
+
       } else {
         notification("Não é permitido converter dois arquivos ao mesmo tempo, porfavor tente converter um de cada vez.");
         document.querySelector('.selection').style.border = 'none';
       }
     };
+
+    let inputCrt = document.getElementById('crtFile');
+    let inputKey = document.getElementById('keyFile');
+
     if (modo === "CRT_KEY") {
-      if (dt.files.length < 3) {
-        const allowedExtensions = ['.key', '.crt'];
-        let filename1 = dt.files[0] ? dt.files[0].name : null;
-        let filename2 = dt.files[1] ? dt.files[1].name : null;
+      if (dtKey.files.length > 1 || dtCrt.files.length > 1) {
+        notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
+        document.querySelector('.selection').style.border = 'none';
 
-        if ((filename1 != null && allowedExtensions.includes(obterExtensaoArquivo(filename1.toLowerCase()))) || (filename2 != null && allowedExtensions.includes(obterExtensaoArquivo(filename2.toLowerCase())))) {
+      } else if ((inputCrt.files.length == 1 && dtCrt.files.length == 1) || (inputKey.files.length == 1 && dtKey.files.length == 1)) {
+        notification("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
+        document.querySelector('.selection').style.border = 'none';
+      }
+      else {
 
-          if (dt.files.length == 2) {
-            if (obterExtensaoArquivo(filename1).toLowerCase() != obterExtensaoArquivo(filename2).toLowerCase()) {
-              console.log("salvar dois arquivos");
-            } else {
-              notification("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
-              document.querySelector('.selection').style.border = 'none';
-            }
+        if (inputCrt.files.length == 0 && inputKey.files.length == 0) {
+          document.getElementById("containerArquivos").innerHTML = "";
+        }
+
+
+        let nameKey = dtKey.files.item(0) ? dtKey.files.item(0).name : null;
+        let nameCrt = dtCrt.files.item(0) ? dtCrt.files.item(0).name : null;
+
+        if (nameKey != nameCrt) {
+          document.querySelector(".container").style.display = "flex";
+
+          if (dtKey.files.length == 1) {
+            document.getElementById("keyFile").files = dtKey.files;
+            document.getElementById("msgForUser").innerText = "Agora selecione o arquivo CRT";
+            document.querySelector(".main").style.height = "20vh";
+            document.getElementById("file").accept = ".crt";
+            let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
+            document.getElementById("containerArquivos").innerHTML += `
+            <div class="grid_inputs">
+              <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
+              <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameKey}">${nomeAExibir}</p>
+              <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
+            </div>
+            `;
+          }
+
+          if (dtCrt.files.length == 1) {
+            document.getElementById("crtFile").files = dtCrt.files;
+            document.querySelector(".main").style.height = "20vh";
+            document.getElementById("file").accept = ".key";
+            document.getElementById("msgForUser").innerText = "Agora selecione o arquivo KEY";
+            let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
+            document.getElementById("containerArquivos").innerHTML += `
+            <div class="grid_inputs">
+              <img src="../images/file-image.png" alt="arquivo" class="arquive"  style="width: 40px;">
+              <p class="file-name" id="nomeArquivo" data-nomeCompletoArquivo="${nameCrt}">${nomeAExibir}</p>
+              <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt(event)">  
+            </div>
+            `;
+          }
+
+          if (inputCrt.files.length == 1 && inputKey.files.length == 1) {
+            document.getElementsByClassName("download-button-files")[0].style.display = "inline-block";
+            document.querySelector(".main").style.display = "none";
+            document.getElementsByClassName("password-name")[0].style.display = "block";
+            document.querySelector(".selection").style.border = '1px dashed #330253';
           } else {
-            console.log("salvar um arquivo");
+            document.getElementsByClassName("download-button-files")[0].style.display = "none";
+            document.querySelector(".main").style.display = "grid";
+            document.getElementsByClassName("password-name")[0].style.display = "none";
+            document.getElementById("senhaParaPFX").value = "";
+            document.getElementById("nomeParaPFX").value = "";
+            document.querySelector(".selection").style.border = 'none'
           }
 
 
         } else {
-          notification("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
+          notification("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
           document.querySelector('.selection').style.border = 'none';
         }
-
-      } else {
-        notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
-        document.querySelector('.selection').style.border = 'none';
       }
     }
   }
