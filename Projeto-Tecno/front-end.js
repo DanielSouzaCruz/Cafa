@@ -29,7 +29,7 @@ function escolherKey_Crt(event) {
 
     [...event.target.files].forEach((file) => {
       const fileExtension = obterExtensaoArquivo(file.name).toLowerCase();
-      console.log(fileExtension);
+      
       if (fileExtension == ".crt") {
         dtCrt.items.add(file);
       } else if (fileExtension == ".key") {
