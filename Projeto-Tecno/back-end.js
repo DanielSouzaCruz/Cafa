@@ -23,28 +23,33 @@ function converterCrtAndKeyToPfx() {
           const senhaPfx = document.getElementById("senhaParaPFX").value;
           let nomePfx = document.getElementById("nomeParaPFX").value;
 
-          // Converter o conteúdo para o formato Forge
-          const certAsn1 = forge.pki.certificateFromPem(conteudoArquivoCrt);
-          const chaveAsn1 = forge.pki.privateKeyFromPem(conteudoArquivoKey);
+          try {
+            // Converter o conteúdo para o formato Forge
+            const certAsn1 = forge.pki.certificateFromPem(conteudoArquivoCrt);
+            const chaveAsn1 = forge.pki.privateKeyFromPem(conteudoArquivoKey);
 
-          // Criar o objeto PKCS#12 (PFX)
-          const p12Asn1 = forge.pkcs12.toPkcs12Asn1(chaveAsn1, certAsn1, senhaPfx);
+            // Criar o objeto PKCS#12 (PFX)
+            const p12Asn1 = forge.pkcs12.toPkcs12Asn1(chaveAsn1, certAsn1, senhaPfx);
 
-          // Converter o objeto PKCS#12 para um ArrayBuffer
-          const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
-          const p12b64 = forge.util.encode64(p12Der);
+            // Converter o objeto PKCS#12 para um ArrayBuffer
+            const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
+            const p12b64 = forge.util.encode64(p12Der);
 
-          if(nomePfx == ""){
-            nomePfx = "certificate";
+            if (nomePfx == "") {
+              nomePfx = "certificate";
+            }
+            const a = document.createElement('a');
+            a.download = `${nomePfx}.pfx`;
+            a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
+            a.appendChild(document.createTextNode('Download'));
+            document.body.appendChild(a);
+            a.click();
+
+            document.body.removeChild(a);
+          } catch (exception) {
+            notification("Erro na conversão. Verifique os arquivos enviados e tente novamente");
           }
-          const a = document.createElement('a');
-          a.download = `${nomePfx}.pfx`;
-          a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
-          a.appendChild(document.createTextNode('Download'));
-          document.body.appendChild(a);
-          a.click();
 
-          document.body.removeChild(a);
           // Salvar arquivo PFX
           // fs.writeFileSync("C:\\", p12Der, { encoding: 'binary' });
 
@@ -69,7 +74,7 @@ function converterCrtAndKeyToPfx() {
       }
     }
     reader.onerror = function (evt) {
-      notification("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")    
+      notification("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")
     }
   }
 }
@@ -80,9 +85,9 @@ function arrayBufferToString(arrayBuffer) {
 
 function converterPfxToCrtAndKey() {
   const elementInputPfx = document.getElementById('pfxFile').files[0];
-  
+
   if (elementInputPfx) {
-    
+
     var reader = new FileReader();
     reader.readAsArrayBuffer(elementInputPfx);
     reader.onload = function (event) {
