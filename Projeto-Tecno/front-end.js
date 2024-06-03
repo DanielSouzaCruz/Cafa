@@ -312,7 +312,28 @@ function dropHandler(event) {
     if (modo === "CRT_KEY") {
       if (dt.files.length < 3) {
         const allowedExtensions = ['.key', '.crt'];
-        
+        let filename1 = dt.files[0] ? dt.files[0].name : null;
+        let filename2 = dt.files[1] ? dt.files[1].name : null;
+
+        if ((filename1 != null && allowedExtensions.includes(obterExtensaoArquivo(filename1.toLowerCase()))) || (filename2 != null && allowedExtensions.includes(obterExtensaoArquivo(filename2.toLowerCase())))) {
+
+          if (dt.files.length == 2) {
+            if (obterExtensaoArquivo(filename1).toLowerCase() != obterExtensaoArquivo(filename2).toLowerCase()) {
+              console.log("salvar dois arquivos");
+            } else {
+              notification("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
+              document.querySelector('.selection').style.border = 'none';
+            }
+          } else {
+            console.log("salvar um arquivo");
+          }
+
+
+        } else {
+          notification("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
+          document.querySelector('.selection').style.border = 'none';
+        }
+
       } else {
         notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
         document.querySelector('.selection').style.border = 'none';
