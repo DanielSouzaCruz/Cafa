@@ -413,7 +413,7 @@ function dropHandler(event) {
 
         let nameKey = dtKey.files.item(0) ? dtKey.files.item(0).name : null;
         let nameCrt = dtCrt.files.item(0) ? dtCrt.files.item(0).name : null;
-        alert(nameKey + " | " + nameCrt);
+        alert(nameKey + " | " + nameCrt + " || " + dtKey.files.length + " | " + dtCrt.files.length );
 
         if (nameKey != nameCrt) {
           document.querySelector(".container").style.display = "flex";
