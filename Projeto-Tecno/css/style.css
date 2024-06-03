@@ -425,6 +425,7 @@ input::placeholder {
     font-family: "Secular One", sans-serif;
     color: var(--cor-base);
     margin-top: 24px;
+    width:100%;
     text-align: center;
   }
 }
