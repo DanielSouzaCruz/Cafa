@@ -252,6 +252,7 @@ function fecharArquivoKey_Crt(event) {
 }
 
 function select_converter(element) {
+  document.querySelector('.selection').style.border = 'none';
   const itensLista = document.querySelectorAll(".segment ul li");
   itensLista.forEach(item => item.classList.remove("active"));
   element.classList.add("active");
