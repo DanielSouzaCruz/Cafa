@@ -391,6 +391,9 @@ input::placeholder {
   display: fixed;
   ul {
     display: flex;
+    
+  }
+  li{
     cursor: pointer;
   }
 }
@@ -410,7 +413,7 @@ input::placeholder {
 }
 
 .acceptance_of_terms {
-  cursor: pointer;
+  cursor: default;
   display: flex;
   position: fixed;
   top: 90%;
@@ -419,9 +422,10 @@ input::placeholder {
   width: 90%;
 
   p {
-    font-family: "Gill Sans Extrabold", sans-serif;
+    font-family: "Secular One", sans-serif;
     color: var(--cor-base);
     margin-top: 24px;
+    text-align: center;
   }
 }
 
