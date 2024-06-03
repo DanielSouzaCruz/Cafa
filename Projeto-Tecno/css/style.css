@@ -419,7 +419,7 @@ input::placeholder {
   width: 90%;
 
   p {
-    font-family: "Avilock", sans-serif;
+    font-family: "Gill Sans Extrabold", sans-serif;
     color: var(--cor-base);
     margin-top: 24px;
   }
