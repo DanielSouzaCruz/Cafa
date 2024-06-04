@@ -18,7 +18,7 @@ function tela_crtkey(){
   </div>
 
   <main class="main">
-    <input onchange="escolherKey_Crt(event)" type="file" id="file" accept=".crt,.key" multiple>
+    <input onchange="escolherKeyCrt(event)" type="file" id="file" accept=".crt,.key" multiple>
     <input type="file" id="crtFile" style="display:none">
     <input type="file" id="keyFile" style="display:none">
     <label class="botaoSelecionarFiles" for="file">

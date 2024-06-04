@@ -17,7 +17,7 @@ app.whenReady().then(() => {
 })
 
 
-function escolherKey_Crt(event) {
+function escolherKeyCrt(event) {
   if (event.target.files && event.target.files[0]) {
 
     let campoCrt = document.getElementById('crtFile');
@@ -55,6 +55,7 @@ function escolherKey_Crt(event) {
     } else {
       let nomeKey = dataTransferKey.files.item(0) ? dataTransferKey.files.item(0).name : null;
       let nomeCrt = dataTransferCrt.files.item(0) ? dataTransferCrt.files.item(0).name : null;
+
       if (nomeKey != nomeCrt) {
 
         if (campoCrt.files.length == 0 && campoKey.files.length == 0) {
@@ -185,23 +186,23 @@ function fecharArquivoKey_Crt(event) {
 
 }
 
-function select_converter(element) {
+function selecionarMenuConverter(element) {
   document.querySelector('.selection').style.border = 'none';
   const itensLista = document.querySelectorAll(".segment ul li");
   itensLista.forEach(item => item.classList.remove("active"));
   element.classList.add("active");
-  const divSelection = document.querySelector('.selection');
+  const divSelecaoMenu = document.querySelector('.selection');
 
   if (element.classList.contains("active") && element.id === "pfx_file") {
-    divSelection.innerHTML = '';
+    divSelecaoMenu.innerHTML = '';
     document.getElementsByClassName('selection')[0].setAttribute("data-modo-atual-conversao", "PFX");
     const pfx_file = tela_pfx();
-    divSelection.innerHTML = pfx_file;
+    divSelecaoMenu.innerHTML = pfx_file;
   } else {
-    divSelection.innerHTML = '';
+    divSelecaoMenu.innerHTML = '';
     document.getElementsByClassName('selection')[0].setAttribute("data-modo-atual-conversao", "CRT_KEY");
     const key_crt_file = tela_crtkey();
-    divSelection.innerHTML = key_crt_file;
+    divSelecaoMenu.innerHTML = key_crt_file;
   }
 }
 
@@ -364,9 +365,9 @@ function obterExtensaoArquivo(nomeDoArquivo) {
 
 function dragOverHandler(ev) {
   ev.preventDefault();
-  const divSelection = document.querySelector('.selection');
-  divSelection.style.border = '1px dashed #330253'
+  const divSelecaoMenu = document.querySelector('.selection');
+  divSelecaoMenu.style.border = '1px dashed #330253'
   ev.target.addEventListener('dragleave', function () {
-    divSelection.style.border = 'none';
+    divSelecaoMenu.style.border = 'none';
   });
 }
