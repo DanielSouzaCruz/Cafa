@@ -100,7 +100,7 @@ function escolherKeyCrt(event) {
         mostrarNotificacaoErro("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
       }
     }
-    
+
   }
   document.getElementById("file").value = "";
 }
@@ -215,9 +215,9 @@ function mostrarNotificacaoErro(e) {
     className: "info",
     gravity: 'bottom',
     style: {
-      background: "#ffffff",
-      color: "#000000",
-      border: "2px solid #622F7A"
+      background: "#bd360d",
+      color: "#ffffff",
+      border: "2px solid #bd360d"
     }
   }).showToast();
 }
@@ -237,16 +237,16 @@ function dropHandler(event) {
       if (item.kind === "file") {
         file = item.getAsFile();
         const extensaoArquivo = obterExtensaoArquivo(file.name).toLowerCase();
-        
+
         if (modo == "PFX" && (extensaoArquivo == ".pfx" || extensaoArquivo == ".p12")) {
           dtPfx.items.add(file);
-        } else if (extensaoArquivo == ".crt" && modo == "CRT_KEY"  ) {
+        } else if (extensaoArquivo == ".crt" && modo == "CRT_KEY") {
           dataTransferCrt.items.add(file);
         } else if (extensaoArquivo == ".key" && modo == "CRT_KEY") {
           dataTransferKey.items.add(file);
-        } else if(modo == ""){
+        } else if (modo == "") {
 
-        }else {
+        } else {
           if (modo === "PFX") {
             mostrarNotificacaoErro("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
             document.querySelector('.selection').style.border = 'none';
@@ -263,7 +263,7 @@ function dropHandler(event) {
       }
     });
 
-    if(deveContinuar == false){
+    if (deveContinuar == false) {
       return;
     }
 

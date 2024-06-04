@@ -1,11 +1,11 @@
-function tela_crtkey(){
-    return `
+function tela_crtkey() {
+  return `
     <div class="container" style="display: none;">
     <div id="containerArquivos">
       <div class="grid_inputs">
         <img src="../images/file-image.png" alt="arquivo" class="arquive">
         <p class="file-name" id="nomeArquivo"></p>
-        <img src="images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt()">
+        <img src="../images/x.png" alt="close" class="close" onclick="fecharArquivoKey_Crt()">
       </div>
     </div>
     <div class="password-name">
