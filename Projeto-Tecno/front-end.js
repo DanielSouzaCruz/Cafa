@@ -36,7 +36,7 @@ function escolherKey_Crt(event) {
       } else if (extensaoArquivo == ".key") {
         dataTransferKey.items.add(arquivo);
       } else {
-        notification("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
+        mostrarNotificacaoErro("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
         document.getElementById("file").value = "";
         devoProsseguir = false;
         return;
@@ -49,13 +49,13 @@ function escolherKey_Crt(event) {
 
 
     if (dataTransferKey.files.length > 1 || dataTransferCrt.files.length > 1) {
-      notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
+      mostrarNotificacaoErro("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
     } else if ((campoCrt.files.length == 1 && dataTransferCrt.files.length == 1) || (campoKey.files.length == 1 && dataTransferKey.files.length == 1)) {
-      notification("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
+      mostrarNotificacaoErro("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
     } else {
-      let nameKey = dataTransferKey.files.item(0) ? dataTransferKey.files.item(0).name : null;
-      let nameCrt = dataTransferCrt.files.item(0) ? dataTransferCrt.files.item(0).name : null;
-      if (nameKey != nameCrt) {
+      let nomeKey = dataTransferKey.files.item(0) ? dataTransferKey.files.item(0).name : null;
+      let nomeCrt = dataTransferCrt.files.item(0) ? dataTransferCrt.files.item(0).name : null;
+      if (nomeKey != nomeCrt) {
 
         if (campoCrt.files.length == 0 && campoKey.files.length == 0) {
           document.getElementById("containerArquivos").innerHTML = "";
@@ -68,8 +68,8 @@ function escolherKey_Crt(event) {
           document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";
           document.querySelector(".main").style.height = "20vh";
           document.getElementById("file").accept = ".crt";
-          let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
-          document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameKey, nomeAExibir);
+          let nomeAExibir = nomeKey.length > 20 ? nomeKey.substring(0, 20) + "..." : nomeKey;
+          document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nomeKey, nomeAExibir);
         }
 
         if (dataTransferCrt.files.length == 1) {
@@ -77,8 +77,8 @@ function escolherKey_Crt(event) {
           document.querySelector(".main").style.height = "20vh";
           document.getElementById("file").accept = ".key";
           document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .KEY";
-          let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
-          document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameCrt, nomeAExibir);
+          let nomeAExibir = nomeCrt.length > 20 ? nomeCrt.substring(0, 20) + "..." : nomeCrt;
+          document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nomeCrt, nomeAExibir);
         }
 
         if (campoCrt.files.length == 1 && campoKey.files.length == 1) {
@@ -96,7 +96,7 @@ function escolherKey_Crt(event) {
         }
 
       } else {
-        notification("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
+        mostrarNotificacaoErro("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
       }
     }
     
@@ -205,7 +205,7 @@ function select_converter(element) {
   }
 }
 
-function notification(e) {
+function mostrarNotificacaoErro(e) {
   const audio = new Audio('../audio/Error.mp3')
   audio.play();
   Toastify({
@@ -247,12 +247,12 @@ function dropHandler(event) {
 
         }else {
           if (modo === "PFX") {
-            notification("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
+            mostrarNotificacaoErro("Erro de extensão! Somente arquivos .pfx e .p12 são permitidos.");
             document.querySelector('.selection').style.border = 'none';
             deveContinuar = false;
             return;
           } else {
-            notification("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
+            mostrarNotificacaoErro("Erro de extensão! Somente arquivos .crt e .key são permitidos.");
             document.querySelector('.selection').style.border = 'none';
             deveContinuar = false;
             return;
@@ -281,7 +281,7 @@ function dropHandler(event) {
 
 
       } else {
-        notification("Não é permitido converter dois arquivos ao mesmo tempo, porfavor tente converter um de cada vez.");
+        mostrarNotificacaoErro("Não é permitido converter dois arquivos ao mesmo tempo, porfavor tente converter um de cada vez.");
         document.querySelector('.selection').style.border = 'none';
       }
     };
@@ -291,11 +291,11 @@ function dropHandler(event) {
 
     if (modo === "CRT_KEY") {
       if (dataTransferKey.files.length > 1 || dataTransferCrt.files.length > 1) {
-        notification("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
+        mostrarNotificacaoErro("Não é permitido converter mais que dois arquivos, sendo eles um .key e um .crt");
         document.querySelector('.selection').style.border = 'none';
 
       } else if ((campoCrt.files.length == 1 && dataTransferCrt.files.length == 1) || (campoKey.files.length == 1 && dataTransferKey.files.length == 1)) {
-        notification("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
+        mostrarNotificacaoErro("Para a correta conversão só é permitido ter um arquivo .CRT e um arquivo .KEY");
         document.querySelector('.selection').style.border = 'none';
       }
       else {
@@ -305,10 +305,10 @@ function dropHandler(event) {
         }
 
 
-        let nameKey = dataTransferKey.files.item(0) ? dataTransferKey.files.item(0).name : null;
-        let nameCrt = dataTransferCrt.files.item(0) ? dataTransferCrt.files.item(0).name : null;
+        let nomeKey = dataTransferKey.files.item(0) ? dataTransferKey.files.item(0).name : null;
+        let nomeCrt = dataTransferCrt.files.item(0) ? dataTransferCrt.files.item(0).name : null;
 
-        if (nameKey != nameCrt) {
+        if (nomeKey != nomeCrt) {
           document.querySelector(".container").style.display = "flex";
 
           if (dataTransferKey.files.length == 1) {
@@ -316,8 +316,8 @@ function dropHandler(event) {
             document.getElementById("msgForUser").innerText = "Agora selecione ou Arraste um arquivo .CRT";
             document.querySelector(".main").style.height = "20vh";
             document.getElementById("file").accept = ".crt";
-            let nomeAExibir = nameKey.length > 20 ? nameKey.substring(0, 20) + "..." : nameKey;
-            document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameKey, nomeAExibir);
+            let nomeAExibir = nomeKey.length > 20 ? nomeKey.substring(0, 20) + "..." : nomeKey;
+            document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nomeKey, nomeAExibir);
           }
 
           if (dataTransferCrt.files.length == 1) {
@@ -325,8 +325,8 @@ function dropHandler(event) {
             document.querySelector(".main").style.height = "20vh";
             document.getElementById("file").accept = ".key";
             document.getElementById("msgForUser").innerText = "Agora selecione ou Arrate um arquivo .KEY";
-            let nomeAExibir = nameCrt.length > 20 ? nameCrt.substring(0, 20) + "..." : nameCrt;
-            document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nameCrt, nomeAExibir);
+            let nomeAExibir = nomeCrt.length > 20 ? nomeCrt.substring(0, 20) + "..." : nomeCrt;
+            document.getElementById("containerArquivos").innerHTML += visualizador_dados_arquivoKeyCrt(nomeCrt, nomeAExibir);
           }
 
           if (campoCrt.files.length == 1 && campoKey.files.length == 1) {
@@ -345,7 +345,7 @@ function dropHandler(event) {
 
 
         } else {
-          notification("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
+          mostrarNotificacaoErro("Não é permitido converter dois arquivos com a mesma extensão. Por favor, tente novamente enviando arquivo CRT e KEY.");
           document.querySelector('.selection').style.border = 'none';
         }
       }

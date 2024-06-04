@@ -1,4 +1,4 @@
-window.addEventListener('load', function (){
+window.addEventListener('load', function () {
   document.getElementById('pfx_file').click()
 });
 
@@ -9,7 +9,7 @@ function converterCrtAndKeyToPfx() {
   const elementInputKey = document.getElementById('keyFile').files[0];
 
   var conteudoArquivoCrt, conteudoArquivoKey;
-  
+
   if (elementInputCrt) {
     var reader = new FileReader();
     reader.readAsText(elementInputCrt, "UTF-8");
@@ -45,7 +45,9 @@ function converterCrtAndKeyToPfx() {
             a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
             a.appendChild(document.createTextNode('Download'));
             document.body.appendChild(a);
+          
             a.click();
+
 
             document.body.removeChild(a);
           } catch (exception) {
