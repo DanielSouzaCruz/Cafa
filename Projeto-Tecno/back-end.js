@@ -45,23 +45,24 @@ function converterCrtAndKeyToPfx() {
             a.setAttribute('href', 'data:application/x-pkcs12;base64,' + p12b64);
             a.appendChild(document.createTextNode('Download'));
             document.body.appendChild(a);
-          
+
             a.click();
 
 
             document.body.removeChild(a);
+            mostrarNotificacaoSucesso("Arquivo conertido com sucesso!");
           } catch (exception) {
-            notification("Erro na conversão. Verifique os arquivos enviados e tente novamente");
+            mostrarNotificacaoErro("Erro na conversão. Verifique os arquivos enviados e tente novamente");
           }
 
         }
         reader.onerror = function (evt) {
-          notification("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")
+          mostrarNotificacaoErro("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")
         }
       }
     }
     reader.onerror = function (evt) {
-      notification("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")
+      mostrarNotificacaoErro("Arquivo corrompido ou com erro! Porfavor tente um arquivo válido")
     }
   }
 }
@@ -104,8 +105,10 @@ function converterPfxToCrtAndKey() {
         downloadFile(privateKeyPem, `${pfxName}.key`, 'application/octet-stream');
         downloadFile(certPem, `${pfxName}.crt`, 'application/octet-stream');
 
+        mostrarNotificacaoSucesso('Arquivo coonvertido com sucesso!');
+
       } catch (error) {
-        notification("Senha ou arquivo inválido! Tente novamente com uma senha válida e selecionando um arquivo válido.")
+        mostrarNotificacaoErro("Senha ou arquivo inválido! Tente novamente com uma senha válida e selecionando um arquivo válido.")
       }
 
     }
@@ -124,3 +127,18 @@ function downloadFile(data, filename, type) {
   document.body.removeChild(link);
 }
 
+function mostrarNotificacaoSucesso(e) {
+  const audio = new Audio('../audio/Sucess.mp3')
+  audio.play();
+  Toastify({
+    text: e,
+    duration: 7000,
+    className: "info",
+    gravity: 'bottom',
+    style: {
+      background: "#0dbd16",
+      color: "#ffffff",
+      border: "2px solid #0dbd16"
+    }
+  }).showToast();
+}
