@@ -20,3 +20,9 @@ openssl pkcs12 -export -out C:\Users\Laboratorio\Downloads\star_dot_robertwray_d
 ```
 openssl pkcs12 -in C:\Users\Laboratorio\Downloads\star_dot_robertwray_dot_local.pfx -out C:\Users\Laboratorio\Downloads\otherCrt.crt -clcerts -nokeys && openssl pkcs12 -in C:\Users\Laboratorio\Downloads\star_dot_robertwray_dot_local.pfx -out C:\Users\Laboratorio\Downloads\otherKey.key -nocerts -nodes
 ```
+
+Build do projeto:
+
+na Pasta projeto techno executar seguinte comando: npm install --save-dev @electron/packager,
+
+logo apos isso: npx @electron/packager . nome.
