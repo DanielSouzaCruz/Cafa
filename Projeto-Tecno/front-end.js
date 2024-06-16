@@ -222,6 +222,22 @@ function mostrarNotificacaoErro(e) {
   }).showToast();
 }
 
+function mostrarNotificacaoSucesso(e) {
+  const audio = new Audio('../audio/Success.mp3')
+  audio.play();
+  Toastify({
+    text: e,
+    duration: 5000,
+    className: "info",
+    gravity: 'bottom',
+    style: {
+      background: "#0dbd16",
+      color: "#ffffff",
+      border: "2px solid #0dbd16"
+    }
+  }).showToast();
+}
+
 function dropHandler(event) {
   event.preventDefault();
   if (event.dataTransfer.items) {
