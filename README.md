@@ -1,5 +1,8 @@
 # Cafa
 Conversor de arquivos .pfx e .key + .crt
+Projeto Realizado durante as etapas do desafio/competição TECNOSPEED, consistia na criação de um conversor de arquivos entre .pfx e .key + .crt,
+projeto realizado durante o 7° Semestre de ESW.
+
 
 
 ## Testes OPENSSL
